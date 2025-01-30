@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Projet DEKRA"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "f7f5228f-6604-4faf-9d28-41915a60dee8"
+  }
+}

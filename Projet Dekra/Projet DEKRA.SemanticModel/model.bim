@@ -92,6 +92,10 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
           }
         ],
         "columns": [
@@ -398,7 +402,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\boudl\\Downloads\\Projet Dekra\\Test-data.xlsx\"), null, true),",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\boudl\\Documents\\Projet Dekra\\PBI_AUTO.github.io\\Projet Dekra\\Test-data.xlsx\"), null, true),",
                 "    data_Sheet = Source{[Item=\"data\",Kind=\"Sheet\"]}[Data],",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(data_Sheet, [PromoteAllScalars=true]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Year\", Int64.Type}, {\"Brand\", type text}, {\"MODELS\", type any}, {\"Class\", type text}, {\"Performance Indicator\", Int64.Type}, {\"HP\", Int64.Type}, {\"Torque\", Int64.Type}, {\"Weight\", Int64.Type}, {\"Wt/HP Ratio\", type number}, {\"Engine position\", type text}, {\"Drive\", type text}, {\"Cylinder\", type any}, {\"Country\", type text}, {\"0-60 Sec\", type any}, {\"0-100 Sec\", type any}, {\"Top Speed\", type number}, {\"60-0 Feet\", type any}, {\"100-0 Feet\", type any}, {\"60mph g's\", type number}, {\"100mph g's\", type number}, {\"60-100 sec\", type any}})",
@@ -416,6 +420,10 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
           }
         ],
         "columns": [
@@ -454,7 +462,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\boudl\\Downloads\\Projet Dekra\\Test-data.xlsx\"), null, false),",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\boudl\\Documents\\Projet Dekra\\PBI_AUTO.github.io\\Projet Dekra\\Test-data.xlsx\")),",
                 "    Instruction_sheet = Source{[Item=\"Instruction\",Kind=\"Sheet\"]}[Data],",
                 "    FilterNullAndWhitespace = each List.Select(_, each _ <> null and (not (_ is text) or Text.Trim(_) <> \"\")),",
                 "    #\"Added Custom\" = Table.AddColumn(Instruction_sheet, \"IsEmptyRow\", each try List.IsEmpty(FilterNullAndWhitespace(Record.FieldValues(_))) otherwise false),",
@@ -482,6 +490,10 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
           }
         ],
         "columns": [
@@ -520,7 +532,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\boudl\\Downloads\\Projet Dekra\\Test-data.xlsx\"), null, false),",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\boudl\\Documents\\Projet Dekra\\PBI_AUTO.github.io\\Projet Dekra\\Test-data.xlsx\")),",
                 "    Instruction_sheet = Source{[Item=\"Instruction\",Kind=\"Sheet\"]}[Data],",
                 "    FilterNullAndWhitespace = each List.Select(_, each _ <> null and (not (_ is text) or Text.Trim(_) <> \"\")),",
                 "    #\"Added Custom\" = Table.AddColumn(Instruction_sheet, \"IsEmptyRow\", each try List.IsEmpty(FilterNullAndWhitespace(Record.FieldValues(_))) otherwise false),",
