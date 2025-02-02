@@ -4,7 +4,7 @@
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"data\",\"Engine Position (Instruction)\",\"Drive (Instruction)\",\"Errors in data\",\"Brand\",\"Model\"]"
+        "value": "[\"Car performance\",\"Errors in data\",\"Brand\",\"Model\",\"Car Category\"]"
       },
       {
         "name": "__PBI_TimeIntelligenceEnabled",
@@ -47,24 +47,24 @@
           },
           {
             "name": "PBI_ResultType",
-            "value": "Table"
+            "value": "Exception"
           }
         ],
         "expression": [
-          "let",
-          "Source = data,",
-          "  #\"Detected Type Mismatches\" = let",
-          "    tableWithOnlyPrimitiveTypes = Table.SelectColumns(Source, Table.ColumnsOfType(Source, {type nullable number, type nullable text, type nullable logical, type nullable date, type nullable datetime, type nullable datetimezone, type nullable time, type nullable duration})),",
-          "    recordTypeFields = Type.RecordFields(Type.TableRow(Value.Type(tableWithOnlyPrimitiveTypes))),",
-          "    fieldNames = Record.FieldNames(recordTypeFields),",
-          "    fieldTypes = List.Transform(Record.ToList(recordTypeFields), each [Type]),",
-          "    pairs = List.Transform(List.Positions(fieldNames), (i) => {fieldNames{i}, (v) => if v = null or Value.Is(v, fieldTypes{i}) then v else error [Message = \"The type of the value does not match the type of the column.\", Detail = v], fieldTypes{i}})",
-          "in",
-          "    Table.TransformColumns(Source, pairs),",
-          "  #\"Added Index\" = Table.AddIndexColumn(#\"Detected Type Mismatches\", \"Row Number\" ,1),",
-          "  #\"Kept Errors\" = Table.SelectRowsWithErrors(#\"Added Index\", {\"Year\", \"Brand\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"}),",
-          "  #\"Reordered Columns\" = Table.ReorderColumns(#\"Kept Errors\", {\"Row Number\", \"Year\", \"Brand\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"})",
-          "in",
+          "let\r",
+          "Source = #\"Car performance\",\r",
+          "  #\"Detected Type Mismatches\" = let\r",
+          "    tableWithOnlyPrimitiveTypes = Table.SelectColumns(Source, Table.ColumnsOfType(Source, {type nullable number, type nullable text, type nullable logical, type nullable date, type nullable datetime, type nullable datetimezone, type nullable time, type nullable duration})),\r",
+          "    recordTypeFields = Type.RecordFields(Type.TableRow(Value.Type(tableWithOnlyPrimitiveTypes))),\r",
+          "    fieldNames = Record.FieldNames(recordTypeFields),\r",
+          "    fieldTypes = List.Transform(Record.ToList(recordTypeFields), each [Type]),\r",
+          "    pairs = List.Transform(List.Positions(fieldNames), (i) => {fieldNames{i}, (v) => if v = null or Value.Is(v, fieldTypes{i}) then v else error [Message = \"The type of the value does not match the type of the column.\", Detail = v], fieldTypes{i}})\r",
+          "in\r",
+          "    Table.TransformColumns(Source, pairs),\r",
+          "  #\"Added Index\" = Table.AddIndexColumn(#\"Detected Type Mismatches\", \"Row Number\" ,1),\r",
+          "  #\"Kept Errors\" = Table.SelectRowsWithErrors(#\"Added Index\", {\"Year\", \"Brand\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"}),\r",
+          "  #\"Reordered Columns\" = Table.ReorderColumns(#\"Kept Errors\", {\"Row Number\", \"Year\", \"Brand\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"})\r",
+          "in\r",
           "    #\"Reordered Columns\""
         ],
         "kind": "m",
@@ -95,15 +95,22 @@
       {
         "name": "f1297951-be98-3650-2279-dd3378f3a373",
         "fromColumn": "ID Model",
-        "fromTable": "data",
+        "fromTable": "Car performance",
         "toColumn": "ID Model",
         "toTable": "Model"
+      },
+      {
+        "name": "AutoDetected_ca5ea055-9387-48a1-b8c4-0607ca626ef1",
+        "fromColumn": "ID Class",
+        "fromTable": "Car performance",
+        "toColumn": "ID Class",
+        "toTable": "Car Category"
       }
     ],
     "sourceQueryCulture": "fr-FR",
     "tables": [
       {
-        "name": "data",
+        "name": "Car performance",
         "annotations": [
           {
             "name": "PBI_ResultType",
@@ -115,46 +122,6 @@
           }
         ],
         "columns": [
-          {
-            "name": "Year",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "int64",
-            "formatString": "0",
-            "lineageTag": "550370b2-10d3-4251-9509-8944891a474e",
-            "sourceColumn": "Year",
-            "summarizeBy": "sum"
-          },
-          {
-            "name": "MODELS",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "3f5f90c2-8094-4f0b-9ffe-b61d0a0dd3e1",
-            "sourceColumn": "MODELS",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "Class",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "86fd659b-b30c-4758-bb7d-2ccac92ec580",
-            "sourceColumn": "Class",
-            "summarizeBy": "none"
-          },
           {
             "name": "Performance Indicator",
             "annotations": [
@@ -168,117 +135,6 @@
             "lineageTag": "4ea70573-706e-4c36-8729-d5742e408b63",
             "sourceColumn": "Performance Indicator",
             "summarizeBy": "sum"
-          },
-          {
-            "name": "HP",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "int64",
-            "formatString": "0",
-            "lineageTag": "63bf0023-44f2-41a1-a991-94307d834619",
-            "sourceColumn": "HP",
-            "summarizeBy": "sum"
-          },
-          {
-            "name": "Torque",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "int64",
-            "formatString": "0",
-            "lineageTag": "a57957c1-3262-43b3-a945-257eb6aa2ba4",
-            "sourceColumn": "Torque",
-            "summarizeBy": "sum"
-          },
-          {
-            "name": "Weight",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "int64",
-            "formatString": "0",
-            "lineageTag": "c6028968-5edd-4cab-9e01-11e8b0937e6b",
-            "sourceColumn": "Weight",
-            "summarizeBy": "sum"
-          },
-          {
-            "name": "Wt/HP Ratio",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              },
-              {
-                "name": "PBI_FormatHint",
-                "value": "{\"isGeneralNumber\":true}"
-              }
-            ],
-            "dataType": "double",
-            "lineageTag": "73ec23c5-c453-4e42-94cb-1247f486ab3e",
-            "sourceColumn": "Wt/HP Ratio",
-            "summarizeBy": "sum"
-          },
-          {
-            "name": "Engine position",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "c252ad42-7adf-465d-bc5b-c8b028c5e72d",
-            "sourceColumn": "Engine position",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "Drive",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "f79837be-0643-416c-9ee9-58af7706cfe4",
-            "sourceColumn": "Drive",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "Cylinder",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "07984744-60a5-4a55-bf00-0fe0d4c4107e",
-            "sourceColumn": "Cylinder",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "Country",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "7fa2345f-2ca9-4443-a29a-b146fc3ee570",
-            "sourceColumn": "Country",
-            "summarizeBy": "none"
           },
           {
             "name": "0-60 Sec",
@@ -397,20 +253,6 @@
             "summarizeBy": "none"
           },
           {
-            "name": "ID",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "int64",
-            "formatString": "0",
-            "lineageTag": "d1d41402-2511-41f2-b149-df3a8be14303",
-            "sourceColumn": "ID",
-            "summarizeBy": "count"
-          },
-          {
             "name": "ID Model",
             "annotations": [
               {
@@ -435,12 +277,25 @@
             "lineageTag": "342c74a0-8021-463b-b817-1cdfc38732f0",
             "sourceColumn": "ID Brand",
             "summarizeBy": "none"
+          },
+          {
+            "name": "ID Class",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "c46a6b65-2a14-481c-8cdf-4fa4df251262",
+            "sourceColumn": "ID Class",
+            "summarizeBy": "none"
           }
         ],
         "lineageTag": "1db72cf6-a6fb-4ca7-b99c-08e4160cff8a",
         "partitions": [
           {
-            "name": "data",
+            "name": "Car performance",
             "mode": "import",
             "source": {
               "expression": [
@@ -468,150 +323,10 @@
                 "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type1\",{\"Brand\"}),",
                 "    #\"Reordered Columns1\" = Table.ReorderColumns(#\"Removed Columns\",{\"ID\", \"ID Model\", \"ID Brand\", \"Year\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"}),",
                 "    #\"Changed Type2\" = Table.TransformColumnTypes(#\"Reordered Columns1\",{{\"ID Model\", type text}}),",
-                "    #\"Removed Errors\" = Table.RemoveRowsWithErrors(#\"Changed Type2\", {\"ID Model\"}),",
-                "    #\"Filtered Rows\" = Table.SelectRows(#\"Removed Errors\", each ([ID Model] = null))",
+                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Changed Type2\",{{\"Class\", \"ID Class\"}}),",
+                "    #\"Removed Columns1\" = Table.RemoveColumns(#\"Renamed Columns1\",{\"ID\", \"Year\", \"MODELS\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\"})",
                 "in",
-                "    #\"Filtered Rows\""
-              ],
-              "type": "m"
-            }
-          }
-        ]
-      },
-      {
-        "name": "Engine Position (Instruction)",
-        "annotations": [
-          {
-            "name": "PBI_ResultType",
-            "value": "Table"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
-          }
-        ],
-        "columns": [
-          {
-            "name": "Column1",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "e6b38c53-e27c-4f5e-ad97-8c5603494bf4",
-            "sourceColumn": "Column1",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "Column2",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "67070d8f-a668-413f-86ff-c75b56ef4713",
-            "sourceColumn": "Column2",
-            "summarizeBy": "none"
-          }
-        ],
-        "lineageTag": "f94997e9-a94f-40dd-9f9e-ee07e0051a0c",
-        "partitions": [
-          {
-            "name": "Engine Position (Instruction)",
-            "mode": "import",
-            "source": {
-              "expression": [
-                "let",
-                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\boudl\\Documents\\Projet Dekra\\PBI_AUTO.github.io\\Projet Dekra\\Test-data.xlsx\")),",
-                "    Instruction_sheet = Source{[Item=\"Instruction\",Kind=\"Sheet\"]}[Data],",
-                "    FilterNullAndWhitespace = each List.Select(_, each _ <> null and (not (_ is text) or Text.Trim(_) <> \"\")),",
-                "    #\"Added Custom\" = Table.AddColumn(Instruction_sheet, \"IsEmptyRow\", each try List.IsEmpty(FilterNullAndWhitespace(Record.FieldValues(_))) otherwise false),",
-                "    #\"Added Index\" = Table.AddIndexColumn(#\"Added Custom\", \"Index\", -1),",
-                "    #\"Added Custom1\" = Table.AddColumn(#\"Added Index\", \"Section\", each if [IsEmptyRow] then -1 else if try #\"Added Index\"[IsEmptyRow]{[Index]} otherwise true then [Index] else null),",
-                "    #\"Removed Blank Rows\" = Table.SelectRows(#\"Added Custom1\", each not [IsEmptyRow]),",
-                "    #\"Filled Down\" = Table.FillDown(#\"Removed Blank Rows\", {\"Section\"}),",
-                "    #\"Grouped Rows\" = Table.Group(#\"Filled Down\", {\"Section\"}, {{\"Rows\", each _}}, GroupKind.Local),",
-                "    #\"Selected Group\" = #\"Grouped Rows\"[Rows]{6},",
-                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Selected Group\", {\"IsEmptyRow\", \"Index\", \"Section\"}),",
-                "    #\"Removed Top Rows\" = Table.Skip(#\"Removed Columns\", each try List.IsEmpty(List.Skip(FilterNullAndWhitespace(Record.FieldValues(_)), 1)) otherwise false),",
-                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Removed Top Rows\", List.Select(Table.ColumnNames(#\"Removed Top Rows\"), each try not List.IsEmpty(FilterNullAndWhitespace(Table.Column(#\"Removed Top Rows\", _))) otherwise true)),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Removed Other Columns\",{{\"Column1\", type text}, {\"Column2\", type text}})",
-                "in",
-                "    #\"Changed Type\""
-              ],
-              "type": "m"
-            }
-          }
-        ]
-      },
-      {
-        "name": "Drive (Instruction)",
-        "annotations": [
-          {
-            "name": "PBI_ResultType",
-            "value": "Table"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
-          }
-        ],
-        "columns": [
-          {
-            "name": "Column1",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "87bb2b99-cfa8-44f2-be46-e69a516ed043",
-            "sourceColumn": "Column1",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "Column2",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "a4436822-3223-4109-a846-276451386e6c",
-            "sourceColumn": "Column2",
-            "summarizeBy": "none"
-          }
-        ],
-        "lineageTag": "396f9dba-9874-4d9e-88e8-02f02a5ef94d",
-        "partitions": [
-          {
-            "name": "Drive (Instruction)",
-            "mode": "import",
-            "source": {
-              "expression": [
-                "let",
-                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\boudl\\Documents\\Projet Dekra\\PBI_AUTO.github.io\\Projet Dekra\\Test-data.xlsx\")),",
-                "    Instruction_sheet = Source{[Item=\"Instruction\",Kind=\"Sheet\"]}[Data],",
-                "    FilterNullAndWhitespace = each List.Select(_, each _ <> null and (not (_ is text) or Text.Trim(_) <> \"\")),",
-                "    #\"Added Custom\" = Table.AddColumn(Instruction_sheet, \"IsEmptyRow\", each try List.IsEmpty(FilterNullAndWhitespace(Record.FieldValues(_))) otherwise false),",
-                "    #\"Added Index\" = Table.AddIndexColumn(#\"Added Custom\", \"Index\", -1),",
-                "    #\"Added Custom1\" = Table.AddColumn(#\"Added Index\", \"Section\", each if [IsEmptyRow] then -1 else if try #\"Added Index\"[IsEmptyRow]{[Index]} otherwise true then [Index] else null),",
-                "    #\"Removed Blank Rows\" = Table.SelectRows(#\"Added Custom1\", each not [IsEmptyRow]),",
-                "    #\"Filled Down\" = Table.FillDown(#\"Removed Blank Rows\", {\"Section\"}),",
-                "    #\"Grouped Rows\" = Table.Group(#\"Filled Down\", {\"Section\"}, {{\"Rows\", each _}}, GroupKind.Local),",
-                "    #\"Selected Group\" = #\"Grouped Rows\"[Rows]{7},",
-                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Selected Group\", {\"IsEmptyRow\", \"Index\", \"Section\"}),",
-                "    #\"Removed Top Rows\" = Table.Skip(#\"Removed Columns\", each try List.IsEmpty(List.Skip(FilterNullAndWhitespace(Record.FieldValues(_)), 1)) otherwise false),",
-                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Removed Top Rows\", List.Select(Table.ColumnNames(#\"Removed Top Rows\"), each try not List.IsEmpty(FilterNullAndWhitespace(Table.Column(#\"Removed Top Rows\", _))) otherwise true)),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Removed Other Columns\",{{\"Column1\", type text}, {\"Column2\", type text}})",
-                "in",
-                "    #\"Changed Type\""
+                "    #\"Removed Columns1\""
               ],
               "type": "m"
             }
@@ -919,9 +634,128 @@
                 "    #\"Changed Type2\" = Table.TransformColumnTypes(#\"Removed Other Columns\",{{\"ID Model\", type text}, {\"MODELS\", type text}}),",
                 "    #\"Removed Errors\" = Table.RemoveRowsWithErrors(#\"Changed Type2\", {\"ID Model\"}),",
                 "    #\"Removed Duplicates\" = Table.Distinct(#\"Removed Errors\", {\"ID Model\"}),",
-                "    #\"Replaced Value\" = Table.ReplaceValue(#\"Removed Duplicates\",null,\"not defined\",Replacer.ReplaceValue,{\"ID Model\"})",
+                "    #\"Replaced Value\" = Table.ReplaceValue(#\"Removed Duplicates\",null,\"not defined\",Replacer.ReplaceValue,{\"ID Model\"}),",
+                "    #\"Replaced Engine P Value1\" = Table.ReplaceValue(#\"Replaced Value\",\"F\",\"Front\",Replacer.ReplaceText,{\"Engine position\"}),",
+                "    #\"Replaced Engine P Value2\" = Table.ReplaceValue(#\"Replaced Engine P Value1\",\"R\",\"Rear\",Replacer.ReplaceText,{\"Engine position\"}),",
+                "    #\"Replaced Engine P Value3\" = Table.ReplaceValue(#\"Replaced Engine P Value2\",\"M\",\"Middle\",Replacer.ReplaceText,{\"Engine position\"}),",
+                "    #\"Replaced Drive Value1\" = Table.ReplaceValue(#\"Replaced Engine P Value3\",\"A\",\"All wheel drive\",Replacer.ReplaceText,{\"Drive\"}),",
+                "    #\"Replaced Drive Value2\" = Table.ReplaceValue(#\"Replaced Drive Value1\",\"R\",\"Rear wheel drive\",Replacer.ReplaceText,{\"Drive\"}),",
+                "    #\"Replaced Drive Value3\" = Table.ReplaceValue(#\"Replaced Drive Value2\",\"F\",\"Front wheel drive\",Replacer.ReplaceText,{\"Drive\"})",
                 "in",
-                "    #\"Replaced Value\""
+                "    #\"Replaced Drive Value3\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Car Category",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "ID Class",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "be726d02-e736-4cd6-895c-dff476ae0dd3",
+            "sourceColumn": "ID Class",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Class",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "aa6bbab9-c714-4ae0-ae54-405b4595d0f0",
+            "sourceColumn": "Class",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Performance Categoy Car",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "014dcfcb-d415-4504-bc6a-0f44f69fabb2",
+            "sourceColumn": "Performance Categoy Car",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "ee4bf580-0852-4ccc-bf69-bbdb4804f67b",
+        "partitions": [
+          {
+            "name": "Car Category",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\boudl\\Documents\\Projet Dekra\\PBI_AUTO.github.io\\Projet Dekra\\Test-data.xlsx\"), null, true),",
+                "    data_Sheet = Source{[Item=\"data\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(data_Sheet, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Year\", Int64.Type}, {\"Brand\", type text}, {\"MODELS\", type any}, {\"Class\", type text}, {\"Performance Indicator\", Int64.Type}, {\"HP\", Int64.Type}, {\"Torque\", Int64.Type}, {\"Weight\", Int64.Type}, {\"Wt/HP Ratio\", type number}, {\"Engine position\", type text}, {\"Drive\", type text}, {\"Cylinder\", type any}, {\"Country\", type text}, {\"0-60 Sec\", type any}, {\"0-100 Sec\", type any}, {\"Top Speed\", type number}, {\"60-0 Feet\", type any}, {\"100-0 Feet\", type any}, {\"60mph g's\", type number}, {\"100mph g's\", type number}, {\"60-100 sec\", type any}}),",
+                "    // Création colonne Index",
+                "    #\"Added column Index\" = Table.AddIndexColumn(#\"Changed Type\", \"Index\", 1, 1, Int64.Type),",
+                "    // Positionnement de la colonne en 1er",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Added column Index\",{\"Index\", \"Year\", \"Brand\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"}),",
+                "    // Renommage de la colonne Index en ID",
+                "    #\"Renamed Column Index => ID\" = Table.RenameColumns(#\"Reordered Columns\",{{\"Index\", \"ID\"}}),",
+                "    #\"Added column ID Model\" = Table.AddColumn(#\"Renamed Column Index => ID\", \"ID Model\", each Text.PadStart(Text.From([Year]) & \"_\" & Text.Start([Brand], 1) & \"_\" & Text.Combine(List.Transform(Text.Split([MODELS], \" \"), each Text.Start(_, 3)), \"\") & \"_\" & ",
+                "    Text.From([HP]) & \"_\" & ",
+                "    Text.From([Torque]) & \"_\" & ",
+                "    Text.From([Weight]), ",
+                "    15, \"0\"",
+                ")),",
+                "    #\"Merged Queries\" = Table.NestedJoin(#\"Added column ID Model\", {\"Brand\"}, Brand, {\"Brand\"}, \"Brand.1\", JoinKind.LeftOuter),",
+                "    #\"Expanded Brand.1\" = Table.ExpandTableColumn(#\"Merged Queries\", \"Brand.1\", {\"ID Brand\"}, {\"Brand.1.ID Brand\"}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Expanded Brand.1\",{{\"Brand.1.ID Brand\", \"ID Brand\"}}),",
+                "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Renamed Columns\",{{\"ID Brand\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type1\",{\"Brand\"}),",
+                "    #\"Reordered Columns1\" = Table.ReorderColumns(#\"Removed Columns\",{\"ID\", \"ID Model\", \"ID Brand\", \"Year\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"}),",
+                "    #\"Changed Type2\" = Table.TransformColumnTypes(#\"Reordered Columns1\",{{\"ID Model\", type text}}),",
+                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Changed Type2\",{\"Class\"}),",
+                "    #\"Removed Duplicates\" = Table.Distinct(#\"Removed Other Columns\"),",
+                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Removed Duplicates\",{{\"Class\", \"ID Class\"}}),",
+                "    #\"Added Custom\" = Table.AddColumn(#\"Renamed Columns1\", \"Class\", each if List.Contains({\"E\", \"F\", \"G\", \"H\", \"I\", \"J\", \"K\", \"L\", \"M\", \"N\", \"O\", \"P\", \"Q\",\"R\", \"S\", \"T\", \"U\", \"V\", \"W\", \"X\"}, Text.Upper([ID Class])) then ",
+                "    \"Street Cars\"",
+                "else if List.Contains({\"R1\", \"R2\", \"R3\", \"R4\"}, Text.Upper([ID Class])) then ",
+                "    \"Racing Cars\"",
+                "else ",
+                "    \"Autres\"),",
+                "    #\"Changed Type3\" = Table.TransformColumnTypes(#\"Added Custom\",{{\"Class\", type text}}),",
+                "    #\"Added Custom1\" = Table.AddColumn(#\"Changed Type3\", \"Performance Categoy Car\", each if [Class] = \"Street Cars\" then",
+                "    if [ID Class] = \"E\" then \"Low performance car\"",
+                "    else if [ID Class] = \"X\" then \"High performance car\"",
+                "    else \"Medium performance car\"",
+                "else if [Class] = \"Racing Cars\" then",
+                "    if [ID Class] = \"R4\" then \"Low performance racing car\"",
+                "    else if [ID Class] = \"R1\" then \"High Performance racing car\"",
+                "    else \"Medium performance racing car\"",
+                "else",
+                "    \"Autres\"),",
+                "    #\"Changed Type4\" = Table.TransformColumnTypes(#\"Added Custom1\",{{\"Performance Categoy Car\", type text}})",
+                "in",
+                "    #\"Changed Type4\""
               ],
               "type": "m"
             }
