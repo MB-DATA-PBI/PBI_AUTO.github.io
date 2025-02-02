@@ -4,7 +4,7 @@
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"data\",\"Engine Position (Instruction)\",\"Drive (Instruction)\",\"Errors in data\"]"
+        "value": "[\"data\",\"Engine Position (Instruction)\",\"Drive (Instruction)\",\"Errors in data\",\"Brand\",\"Model\"]"
       },
       {
         "name": "__PBI_TimeIntelligenceEnabled",
@@ -84,6 +84,22 @@
         "folder": "Query Errors - 30/01/2025 17:14:35"
       }
     ],
+    "relationships": [
+      {
+        "name": "AutoDetected_8fc6a869-9af9-4a6a-aa08-987054c820d6",
+        "fromColumn": "ID Brand",
+        "fromTable": "Model",
+        "toColumn": "ID Brand",
+        "toTable": "Brand"
+      },
+      {
+        "name": "f1297951-be98-3650-2279-dd3378f3a373",
+        "fromColumn": "ID Model",
+        "fromTable": "data",
+        "toColumn": "ID Model",
+        "toTable": "Model"
+      }
+    ],
     "sourceQueryCulture": "fr-FR",
     "tables": [
       {
@@ -112,19 +128,6 @@
             "lineageTag": "550370b2-10d3-4251-9509-8944891a474e",
             "sourceColumn": "Year",
             "summarizeBy": "sum"
-          },
-          {
-            "name": "Brand",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "aebd467a-69a3-4ab1-8108-b63fec104b08",
-            "sourceColumn": "Brand",
-            "summarizeBy": "none"
           },
           {
             "name": "MODELS",
@@ -419,6 +422,19 @@
             "lineageTag": "d7a48f38-5891-430c-bb2c-ca633c919dc7",
             "sourceColumn": "ID Model",
             "summarizeBy": "none"
+          },
+          {
+            "name": "ID Brand",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "342c74a0-8021-463b-b817-1cdfc38732f0",
+            "sourceColumn": "ID Brand",
+            "summarizeBy": "none"
           }
         ],
         "lineageTag": "1db72cf6-a6fb-4ca7-b99c-08e4160cff8a",
@@ -439,9 +455,23 @@
                 "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Added column Index\",{\"Index\", \"Year\", \"Brand\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"}),",
                 "    // Renommage de la colonne Index en ID",
                 "    #\"Renamed Column Index => ID\" = Table.RenameColumns(#\"Reordered Columns\",{{\"Index\", \"ID\"}}),",
-                "    #\"Added column ID Model\" = Table.AddColumn(#\"Renamed Column Index => ID\", \"ID Model\", each Text.PadStart(Text.From([Year]) & \"_\" & [Brand] & \"_\" & Text.From([MODELS]) & \"_\" & Text.From([HP]) & \"_\" & Text.From([Torque]), 15, \"0\"))",
+                "    #\"Added column ID Model\" = Table.AddColumn(#\"Renamed Column Index => ID\", \"ID Model\", each Text.PadStart(Text.From([Year]) & \"_\" & Text.Start([Brand], 1) & \"_\" & Text.Combine(List.Transform(Text.Split([MODELS], \" \"), each Text.Start(_, 3)), \"\") & \"_\" & ",
+                "    Text.From([HP]) & \"_\" & ",
+                "    Text.From([Torque]) & \"_\" & ",
+                "    Text.From([Weight]), ",
+                "    15, \"0\"",
+                ")),",
+                "    #\"Merged Queries\" = Table.NestedJoin(#\"Added column ID Model\", {\"Brand\"}, Brand, {\"Brand\"}, \"Brand.1\", JoinKind.LeftOuter),",
+                "    #\"Expanded Brand.1\" = Table.ExpandTableColumn(#\"Merged Queries\", \"Brand.1\", {\"ID Brand\"}, {\"Brand.1.ID Brand\"}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Expanded Brand.1\",{{\"Brand.1.ID Brand\", \"ID Brand\"}}),",
+                "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Renamed Columns\",{{\"ID Brand\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type1\",{\"Brand\"}),",
+                "    #\"Reordered Columns1\" = Table.ReorderColumns(#\"Removed Columns\",{\"ID\", \"ID Model\", \"ID Brand\", \"Year\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"}),",
+                "    #\"Changed Type2\" = Table.TransformColumnTypes(#\"Reordered Columns1\",{{\"ID Model\", type text}}),",
+                "    #\"Removed Errors\" = Table.RemoveRowsWithErrors(#\"Changed Type2\", {\"ID Model\"}),",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Removed Errors\", each ([ID Model] = null))",
                 "in",
-                "    #\"Added column ID Model\""
+                "    #\"Filtered Rows\""
               ],
               "type": "m"
             }
@@ -582,6 +612,316 @@
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Removed Other Columns\",{{\"Column1\", type text}, {\"Column2\", type text}})",
                 "in",
                 "    #\"Changed Type\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Brand",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Brand",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "c6d4f87c-da07-471e-ad48-6eeb19c4b074",
+            "sourceColumn": "Brand",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Country",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "e8723fe7-70e4-4534-a193-627506db2e86",
+            "sourceColumn": "Country",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Index",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "764ac228-7013-4079-8520-52345f3d763d",
+            "sourceColumn": "Index",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ID Brand",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "31ef459d-6b3f-457a-85ff-1944489ece01",
+            "sourceColumn": "ID Brand",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "bbcd9fdc-a64b-42bf-9cfd-fd4674492490",
+        "partitions": [
+          {
+            "name": "Brand",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\boudl\\Documents\\Projet Dekra\\PBI_AUTO.github.io\\Projet Dekra\\Test-data.xlsx\"), null, true),",
+                "    data_Sheet = Source{[Item=\"data\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(data_Sheet, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Year\", Int64.Type}, {\"Brand\", type text}, {\"MODELS\", type any}, {\"Class\", type text}, {\"Performance Indicator\", Int64.Type}, {\"HP\", Int64.Type}, {\"Torque\", Int64.Type}, {\"Weight\", Int64.Type}, {\"Wt/HP Ratio\", type number}, {\"Engine position\", type text}, {\"Drive\", type text}, {\"Cylinder\", type any}, {\"Country\", type text}, {\"0-60 Sec\", type any}, {\"0-100 Sec\", type any}, {\"Top Speed\", type number}, {\"60-0 Feet\", type any}, {\"100-0 Feet\", type any}, {\"60mph g's\", type number}, {\"100mph g's\", type number}, {\"60-100 sec\", type any}}),",
+                "    // Création colonne Index",
+                "    #\"Added column Index\" = Table.AddIndexColumn(#\"Changed Type\", \"Index\", 1, 1, Int64.Type),",
+                "    // Positionnement de la colonne en 1er",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Added column Index\",{\"Index\", \"Year\", \"Brand\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"}),",
+                "    // Renommage de la colonne Index en ID",
+                "    #\"Renamed Column Index => ID\" = Table.RenameColumns(#\"Reordered Columns\",{{\"Index\", \"ID\"}}),",
+                "    #\"Added column ID Model\" = Table.AddColumn(#\"Renamed Column Index => ID\", \"ID Model\", each Text.PadStart(Text.From([Year]) & \"_\" & [Brand] & \"_\" & Text.From([MODELS]) & \"_\" & Text.From([HP]) & \"_\" & Text.From([Torque]), 15, \"0\")),",
+                "    // Copie de la table de fait, suppression de colonne pour garder les colonnes nécessaire à la table de dimension \"Brand\"",
+                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Added column ID Model\",{\"Brand\", \"Country\"}),",
+                "    #\"Removed Duplicates\" = Table.Distinct(#\"Removed Other Columns\", {\"Brand\"}),",
+                "    #\"Added Index\" = Table.AddIndexColumn(#\"Removed Duplicates\", \"Index\", 1, 1, Int64.Type),",
+                "    #\"Added Custom\" = Table.AddColumn(#\"Added Index\", \"ID Brand\", each Text.Upper(Text.Start([Brand], 1)) & Text.PadStart(Text.From([Index]), 3, \"0\"))",
+                "in",
+                "    #\"Added Custom\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Model",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "ID Brand",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "8cb7657a-c3e4-416d-a085-36c52e92cdb9",
+            "sourceColumn": "ID Brand",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ID Model",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "f9249790-5e10-494c-83a3-fa8cb9a4d634",
+            "sourceColumn": "ID Model",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "MODELS",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "201826fc-19ad-456c-975e-e243fa50d0d9",
+            "sourceColumn": "MODELS",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Year",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "9581b568-dbfa-4753-accf-ef8a8bc93c8b",
+            "sourceColumn": "Year",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "HP",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "ab44a238-d790-4915-90c5-9f3605ddcf10",
+            "sourceColumn": "HP",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Torque",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "76e1ffad-c835-4f7e-b972-05f239cc2ae8",
+            "sourceColumn": "Torque",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Weight",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "9608d5bd-fb23-4a8d-9e1c-cfbf013c3acd",
+            "sourceColumn": "Weight",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Wt/HP Ratio",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "62da96a5-4c38-4a62-8589-e9ee517b2c41",
+            "sourceColumn": "Wt/HP Ratio",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Engine position",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "cd43bba2-ebd2-48c7-9533-1a06892c3274",
+            "sourceColumn": "Engine position",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Drive",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "878d794c-fa88-4cb9-bf08-97480dc44b14",
+            "sourceColumn": "Drive",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Cylinder",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "7df061fa-616e-4887-87c4-3b029b521e2d",
+            "sourceColumn": "Cylinder",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "f2e15083-880a-4cde-84a5-8bc7e96fd993",
+        "partitions": [
+          {
+            "name": "Model",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\boudl\\Documents\\Projet Dekra\\PBI_AUTO.github.io\\Projet Dekra\\Test-data.xlsx\"), null, true),",
+                "    data_Sheet = Source{[Item=\"data\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(data_Sheet, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Year\", Int64.Type}, {\"Brand\", type text}, {\"MODELS\", type any}, {\"Class\", type text}, {\"Performance Indicator\", Int64.Type}, {\"HP\", Int64.Type}, {\"Torque\", Int64.Type}, {\"Weight\", Int64.Type}, {\"Wt/HP Ratio\", type number}, {\"Engine position\", type text}, {\"Drive\", type text}, {\"Cylinder\", type any}, {\"Country\", type text}, {\"0-60 Sec\", type any}, {\"0-100 Sec\", type any}, {\"Top Speed\", type number}, {\"60-0 Feet\", type any}, {\"100-0 Feet\", type any}, {\"60mph g's\", type number}, {\"100mph g's\", type number}, {\"60-100 sec\", type any}}),",
+                "    // Création colonne Index",
+                "    #\"Added column Index\" = Table.AddIndexColumn(#\"Changed Type\", \"Index\", 1, 1, Int64.Type),",
+                "    // Positionnement de la colonne en 1er",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Added column Index\",{\"Index\", \"Year\", \"Brand\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"}),",
+                "    // Renommage de la colonne Index en ID",
+                "    #\"Renamed Column Index => ID\" = Table.RenameColumns(#\"Reordered Columns\",{{\"Index\", \"ID\"}}),",
+                "    #\"Added column ID Model\" = Table.AddColumn(#\"Renamed Column Index => ID\", \"ID Model\", each Text.PadStart(Text.From([Year]) & \"_\" & Text.Start([Brand], 1) & \"_\" & Text.Combine(List.Transform(Text.Split([MODELS], \" \"), each Text.Start(_, 3)), \"\") & \"_\" & ",
+                "    Text.From([HP]) & \"_\" & ",
+                "    Text.From([Torque]) & \"_\" & ",
+                "    Text.From([Weight]), ",
+                "    15, \"0\"",
+                ")),",
+                "    // Pour ajouter la colonne ID Brand à la table de fait (avec la correspondance des colonnes Brand)",
+                "    #\"Merged Queries\" = Table.NestedJoin(#\"Added column ID Model\", {\"Brand\"}, Brand, {\"Brand\"}, \"Brand.1\", JoinKind.LeftOuter),",
+                "    #\"Expanded Brand.1\" = Table.ExpandTableColumn(#\"Merged Queries\", \"Brand.1\", {\"ID Brand\"}, {\"Brand.1.ID Brand\"}),",
+                "    // Brand.1.ID Brand => ID Brand",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Expanded Brand.1\",{{\"Brand.1.ID Brand\", \"ID Brand\"}}),",
+                "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Renamed Columns\",{{\"ID Brand\", type text}}),",
+                "    #\"Removed Columns Brand\" = Table.RemoveColumns(#\"Changed Type1\",{\"Brand\"}),",
+                "    // Placement des colonnes ID Brand, ID Model en deuxième et troisième position",
+                "    #\"Reordered Columns1\" = Table.ReorderColumns(#\"Removed Columns Brand\",{\"ID\", \"ID Brand\", \"ID Model\", \"Year\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"}),",
+                "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Reordered Columns1\",{\"ID Brand\", \"ID Model\", \"MODELS\", \"Year\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\"}),",
+                "    #\"Changed Type2\" = Table.TransformColumnTypes(#\"Removed Other Columns\",{{\"ID Model\", type text}, {\"MODELS\", type text}}),",
+                "    #\"Removed Errors\" = Table.RemoveRowsWithErrors(#\"Changed Type2\", {\"ID Model\"}),",
+                "    #\"Removed Duplicates\" = Table.Distinct(#\"Removed Errors\", {\"ID Model\"}),",
+                "    #\"Replaced Value\" = Table.ReplaceValue(#\"Removed Duplicates\",null,\"not defined\",Replacer.ReplaceValue,{\"ID Model\"})",
+                "in",
+                "    #\"Replaced Value\""
               ],
               "type": "m"
             }
