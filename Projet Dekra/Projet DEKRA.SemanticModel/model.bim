@@ -12,7 +12,7 @@
       },
       {
         "name": "PBIDesktopVersion",
-        "value": "2.139.1733.0 (24.12)+af51d793b3eacaf90fc70909aa713164bbd22a66"
+        "value": "2.139.2054.0 (24.12)+334ca1c95b576cc53924655643b0d36f21caac55"
       },
       {
         "name": "PBI_ProTooling",
@@ -392,6 +392,33 @@
             "lineageTag": "54047f65-b1f8-4fc5-84a0-31cf8df88544",
             "sourceColumn": "60-100 sec",
             "summarizeBy": "none"
+          },
+          {
+            "name": "ID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "d1d41402-2511-41f2-b149-df3a8be14303",
+            "sourceColumn": "ID",
+            "summarizeBy": "count"
+          },
+          {
+            "name": "ID Model",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "d7a48f38-5891-430c-bb2c-ca633c919dc7",
+            "sourceColumn": "ID Model",
+            "summarizeBy": "none"
           }
         ],
         "lineageTag": "1db72cf6-a6fb-4ca7-b99c-08e4160cff8a",
@@ -405,9 +432,16 @@
                 "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\boudl\\Documents\\Projet Dekra\\PBI_AUTO.github.io\\Projet Dekra\\Test-data.xlsx\"), null, true),",
                 "    data_Sheet = Source{[Item=\"data\",Kind=\"Sheet\"]}[Data],",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(data_Sheet, [PromoteAllScalars=true]),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Year\", Int64.Type}, {\"Brand\", type text}, {\"MODELS\", type any}, {\"Class\", type text}, {\"Performance Indicator\", Int64.Type}, {\"HP\", Int64.Type}, {\"Torque\", Int64.Type}, {\"Weight\", Int64.Type}, {\"Wt/HP Ratio\", type number}, {\"Engine position\", type text}, {\"Drive\", type text}, {\"Cylinder\", type any}, {\"Country\", type text}, {\"0-60 Sec\", type any}, {\"0-100 Sec\", type any}, {\"Top Speed\", type number}, {\"60-0 Feet\", type any}, {\"100-0 Feet\", type any}, {\"60mph g's\", type number}, {\"100mph g's\", type number}, {\"60-100 sec\", type any}})",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Year\", Int64.Type}, {\"Brand\", type text}, {\"MODELS\", type any}, {\"Class\", type text}, {\"Performance Indicator\", Int64.Type}, {\"HP\", Int64.Type}, {\"Torque\", Int64.Type}, {\"Weight\", Int64.Type}, {\"Wt/HP Ratio\", type number}, {\"Engine position\", type text}, {\"Drive\", type text}, {\"Cylinder\", type any}, {\"Country\", type text}, {\"0-60 Sec\", type any}, {\"0-100 Sec\", type any}, {\"Top Speed\", type number}, {\"60-0 Feet\", type any}, {\"100-0 Feet\", type any}, {\"60mph g's\", type number}, {\"100mph g's\", type number}, {\"60-100 sec\", type any}}),",
+                "    // Création colonne Index",
+                "    #\"Added column Index\" = Table.AddIndexColumn(#\"Changed Type\", \"Index\", 1, 1, Int64.Type),",
+                "    // Positionnement de la colonne en 1er",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Added column Index\",{\"Index\", \"Year\", \"Brand\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"}),",
+                "    // Renommage de la colonne Index en ID",
+                "    #\"Renamed Column Index => ID\" = Table.RenameColumns(#\"Reordered Columns\",{{\"Index\", \"ID\"}}),",
+                "    #\"Added column ID Model\" = Table.AddColumn(#\"Renamed Column Index => ID\", \"ID Model\", each Text.PadStart(Text.From([Year]) & \"_\" & [Brand] & \"_\" & Text.From([MODELS]) & \"_\" & Text.From([HP]) & \"_\" & Text.From([Torque]), 15, \"0\"))",
                 "in",
-                "    #\"Changed Type\""
+                "    #\"Added column ID Model\""
               ],
               "type": "m"
             }
