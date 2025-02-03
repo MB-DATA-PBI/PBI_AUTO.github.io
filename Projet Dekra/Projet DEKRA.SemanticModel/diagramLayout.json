@@ -4,14 +4,14 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 0,
-        "y": 0
+        "x": 7.5844858144304945,
+        "y": 45.5069118727792
       },
       "nodes": [
         {
           "location": {
-            "x": 1148.086244,
-            "y": 0
+            "x": 781.502777535911,
+            "y": 632.69793485742616
           },
           "nodeIndex": "Brand",
           "nodeLineageTag": "bbcd9fdc-a64b-42bf-9cfd-fd4674492490",
@@ -24,12 +24,12 @@
         {
           "location": {
             "x": 757.79258400000015,
-            "y": 26.596569249999703
+            "y": 39.894853874999541
           },
           "nodeIndex": "Model",
           "nodeLineageTag": "f2e15083-880a-4cde-84a5-8bc7e96fd993",
           "size": {
-            "height": 300,
+            "height": 377.42495627905339,
             "width": 234
           },
           "zIndex": 4
@@ -37,12 +37,12 @@
         {
           "location": {
             "x": 0,
-            "y": 148.67461924999975
+            "y": 161.97290387499959
           },
           "nodeIndex": "Car Category",
           "nodeLineageTag": "ee4bf580-0852-4ccc-bf69-bbdb4804f67b",
           "size": {
-            "height": 152,
+            "height": 156.74030344565631,
             "width": 234
           },
           "zIndex": 5
@@ -50,7 +50,7 @@
         {
           "location": {
             "x": 371.71312700000033,
-            "y": 192.13720825000007
+            "y": 205.43549287499991
           },
           "nodeIndex": "Car performance",
           "nodeLineageTag": "1db72cf6-a6fb-4ca7-b99c-08e4160cff8a",
@@ -62,8 +62,8 @@
         },
         {
           "location": {
-            "x": 1134.463996,
-            "y": 339.12919012500004
+            "x": 1482.037826344495,
+            "y": 382.30635905801097
           },
           "nodeIndex": "Incomplete car data",
           "nodeLineageTag": "e93e3fbc-1a29-4edc-8bd3-70067f0085eb",
@@ -72,10 +72,23 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1766.037826344495,
+            "y": 391.06860412500004
+          },
+          "nodeIndex": "Table Mesure",
+          "nodeLineageTag": "95d613f8-860c-474e-8c2f-893884d95bc2",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
-      "zoomValue": 56.447393005377691,
+      "zoomValue": 63.287087723233967,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,

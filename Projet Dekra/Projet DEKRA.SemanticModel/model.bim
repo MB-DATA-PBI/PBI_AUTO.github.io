@@ -4,7 +4,7 @@
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"Car performance\",\"Brand\",\"Model\",\"Car Category\",\"Incomplete car data\"]"
+        "value": "[\"Car performance\",\"Brand\",\"Model\",\"Car Category\",\"Incomplete car data\",\"Table Mesure\"]"
       },
       {
         "name": "__PBI_TimeIntelligenceEnabled",
@@ -630,8 +630,32 @@
                 "    #\"Replaced Value HP\" = Table.ReplaceValue(#\"Changed Type\",null,0,Replacer.ReplaceValue,{\"HP\"}),",
                 "    #\"Replaced Value Torque\" = Table.ReplaceValue(#\"Replaced Value HP\",null,0,Replacer.ReplaceValue,{\"Torque\"}),",
                 "    #\"Replaced Value Weight\" = Table.ReplaceValue(#\"Replaced Value Torque\",null,0,Replacer.ReplaceValue,{\"Weight\"}),",
+                "    #\"Added Errors Factors\" = Table.AddColumn(#\"Replaced Value Weight\", \"Errors Factors\", each let",
+                "    YearCheck = if not (Value.Is([Year], type number) and [Year] <= Date.Year(DateTime.LocalNow())) then \"Année invalide\" else null,",
+                "    ClassCheck = if Text.Length([Class]) > 2 then \"Class contient plus de 2 lettres\" else null,",
+                "    PerfCheck = if not Value.Is([Performance Indicator], type number) or [Performance Indicator]=0 then \"Performance Indicator invalide\" else null,",
+                "    HPCheck = if not Value.Is([HP], type number) or [HP]=0 then \"HP invalide\" else null,",
+                "    TorqueCheck = if not Value.Is([Torque], type number) or [Torque]=0 then \"Torque invalide\" else null,",
+                "    WeightCheck = if not Value.Is([Weight], type number) or [Weight]=0 then \"Weight invalide\" else null,",
+                "    WtHPCheck = if not Value.Is([#\"Wt/HP Ratio\"], type number) then \"Wt/HP Ratio invalide\" else null,",
+                "    EnginePosCheck = if not (Value.Is([Engine position], type text)) then \"Engine position invalide\" else null,",
+                "    DriveCheck = if not Value.Is([Drive], type text) or Text.Length([Drive]) <> 1 then \"Drive invalide\" else null,",
+                "    Sec60Check = if not Value.Is([#\"0-60 Sec\"], type number) then \"0-60 Sec invalide\" else null,",
+                "    Sec100Check = if not Value.Is([#\"0-100 Sec\"], type number) then \"0-100 Sec invalide\" else null,",
+                "    SpeedCheck = if not Value.Is([Top Speed], type number) then \"Top Speed invalide\" else null,",
+                "    Feet60Check = if not Value.Is([#\"60-0 Feet\"], type number) then \"60-0 Feet invalide\" else null,",
+                "    Feet100Check = if not Value.Is([#\"100-0 Feet\"], type number) then \"100-0 Feet invalide\" else null,",
+                "    G60Check = if not Value.Is([#\"60mph g's\"], type number) then \"60mph g's invalide\" else null,",
+                "    G100Check = if not Value.Is([#\"100mph g's\"], type number) then \"100mph g's invalide\" else null,",
+                "    Sec60100Check = if not Value.Is([#\"60-100 sec\"], type number) then \"60-100 sec invalide\" else null,",
+                "    Erreur = Text.Combine(List.RemoveNulls({YearCheck, ClassCheck, PerfCheck, HPCheck, TorqueCheck, WeightCheck, WtHPCheck, EnginePosCheck, DriveCheck, Sec60Check, Sec100Check, SpeedCheck, Feet60Check, Feet100Check, G60Check, G100Check, Sec60100Check}), \", \")",
+                "in",
+                "    Erreur),",
+                "    #\"Changed Type Errors Factors\" = Table.TransformColumnTypes(#\"Added Errors Factors\",{{\"Errors Factors\", type text}}),",
+                "    // Filtrer sur les ligne Blank de Factor Errors pour avoir toute les données complète et valide",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Changed Type Errors Factors\", each ([Errors Factors] = \"\")),",
                 "    // Création colonne Index",
-                "    #\"Added column Index\" = Table.AddIndexColumn(#\"Replaced Value Weight\", \"Index\", 1, 1, Int64.Type),",
+                "    #\"Added column Index\" = Table.AddIndexColumn(#\"Filtered Rows\", \"Index\", 1, 1, Int64.Type),",
                 "    // Positionnement de la colonne en 1er",
                 "    #\"Reordered Column Index\" = Table.ReorderColumns(#\"Added column Index\",{\"Index\", \"Year\", \"Brand\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"}),",
                 "    // Renommage de la colonne Index en ID",
@@ -1064,6 +1088,47 @@
                 "    #\"Filtered Rows\" = Table.SelectRows(#\"Reordered Column Errors Factors\", each ([Errors Factors] <> \"\"))",
                 "in",
                 "    #\"Filtered Rows\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Table Mesure",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Column1",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "ccc8ce62-3f48-45da-a234-9ebb40e591c8",
+            "sourceColumn": "Column1",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "95d613f8-860c-474e-8c2f-893884d95bc2",
+        "partitions": [
+          {
+            "name": "Table Mesure",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}})",
+                "in",
+                "    #\"Changed Type\""
               ],
               "type": "m"
             }

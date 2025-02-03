@@ -1,5 +1,5 @@
 {
-  "config": "{\"version\":\"5.59\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU10\",\"version\":\"5.61\",\"type\":2}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":2,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true,\"useEnhancedTooltips\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}]}}",
+  "config": "{\"version\":\"5.59\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU10\",\"version\":\"5.61\",\"type\":2}},\"activeSectionIndex\":1,\"defaultDrillFilterOtherVisuals\":true,\"slowDataSourceSettings\":{\"isCrossHighlightingDisabled\":false,\"isSlicerSelectionsButtonEnabled\":false,\"isFilterSelectionsButtonEnabled\":false,\"isFieldWellButtonEnabled\":false,\"isApplyAllButtonEnabled\":false},\"linguisticSchemaSyncVersion\":2,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true,\"useEnhancedTooltips\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}],\"outspacePane\":[{\"properties\":{\"expanded\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}",
   "layoutOptimization": 0,
   "resourcePackages": [
     {
@@ -20,22 +20,155 @@
   "sections": [
     {
       "config": "{}",
-      "displayName": "Page 1",
+      "displayName": "Mixed race",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "1bcaadc77ba009793907",
+      "ordinal": 3,
+      "visualContainers": [],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "Global",
       "displayOption": 1,
       "filters": "[]",
       "height": 720.00,
       "name": "3e53d0bfe58186c65b9e",
       "visualContainers": [
         {
-          "config": "{\"name\":\"033c11512e22a283c8c9\",\"layouts\":[{\"id\":0,\"position\":{\"x\":39.79430141208395,\"y\":56.26090889294628,\"z\":0,\"width\":279.9323271746596,\"height\":279.9323271746596,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"TEST COMMIT\"}]}]}}]}}}",
+          "config": "{\"name\":\"20f9dce8064252404a09\",\"layouts\":[{\"id\":0,\"position\":{\"x\":285.421196334947,\"y\":12.349955610646745,\"z\":3,\"width\":275.81567530444397,\"height\":90.5663411447428,\"tabOrder\":3}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Car Category.Class\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Car Category\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Class\"},\"Name\":\"Car Category.Class\",\"NativeReferenceName\":\"Class\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Class\"}}}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"orientation\":{\"expr\":{\"Literal\":{\"Value\":\"1D\"}}}}}]}}}",
           "filters": "[]",
-          "height": 279.93,
-          "width": 279.93,
-          "x": 39.79,
-          "y": 56.26,
-          "z": 0.00
+          "height": 90.57,
+          "width": 275.82,
+          "x": 285.42,
+          "y": 12.35,
+          "z": 3.00
+        },
+        {
+          "config": "{\"name\":\"2fbc8483e16ab6515a85\",\"layouts\":[{\"id\":0,\"position\":{\"x\":576.3312618301815,\"y\":12.349955610646745,\"z\":2,\"width\":344.42653980803703,\"height\":90.5663411447428,\"tabOrder\":2}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Car Category.Performance Categoy Car\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Car Category\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Performance Categoy Car\"},\"Name\":\"Car Category.Performance Categoy Car\",\"NativeReferenceName\":\"Performance Categoy Car\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 90.57,
+          "width": 344.43,
+          "x": 576.33,
+          "y": 12.35,
+          "z": 2.00
+        },
+        {
+          "config": "{\"name\":\"80d93814a38dc39386d9\",\"layouts\":[{\"id\":0,\"position\":{\"x\":385.5930585101928,\"y\":128.9884252667549,\"z\":5,\"width\":351.2876262583963,\"height\":296.3989346555219,\"tabOrder\":5}}],\"singleVisual\":{\"visualType\":\"clusteredBarChart\",\"projections\":{\"Category\":[{\"queryRef\":\"Car performance.ID Model\",\"active\":true}],\"Y\":[{\"queryRef\":\"Sum(Car performance.0-100 Sec)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Car performance\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"ID Model\"},\"Name\":\"Car performance.ID Model\",\"NativeReferenceName\":\"ID Model\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"0-100 Sec\"}},\"Function\":0},\"Name\":\"Sum(Car performance.0-100 Sec)\",\"NativeReferenceName\":\"Sum of 0-100 Sec\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"0-100 Sec\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"valueAxis\":[{\"properties\":{\"end\":{\"expr\":{\"Literal\":{\"Value\":\"6D\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'the top 10 fastest cars over 0-100 meters'\"}}}}}]}}}",
+          "filters": "[{\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Car performance\"}},\"Property\":\"ID Model\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"subquery\",\"Expression\":{\"Subquery\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Car performance\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"ID Model\"},\"Name\":\"field\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"0-100 Sec\"}},\"Function\":0}}}],\"Top\":10}}},\"Type\":2},{\"Name\":\"c\",\"Entity\":\"Car performance\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"ID Model\"}}],\"Table\":{\"SourceRef\":{\"Source\":\"subquery\"}}}}}]},\"type\":\"TopN\",\"howCreated\":0,\"isHiddenInViewMode\":false}]",
+          "height": 296.40,
+          "width": 351.29,
+          "x": 385.59,
+          "y": 128.99,
+          "z": 5.00
+        },
+        {
+          "config": "{\"name\":\"94e4266d54a000e31909\",\"layouts\":[{\"id\":0,\"position\":{\"x\":37.049866831940236,\"y\":12.349955610646745,\"z\":1,\"width\":248.37132950300676,\"height\":90.5663411447428,\"tabOrder\":1}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Model.Year\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Model\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Year\"},\"Name\":\"Model.Year\",\"NativeReferenceName\":\"Year\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Between'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[{\"name\":\"d12701275c90b0a44381\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Model\"}},\"Property\":\"Year\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Model\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Year\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"2069L\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false}]",
+          "height": 90.57,
+          "width": 248.37,
+          "x": 37.05,
+          "y": 12.35,
+          "z": 1.00
+        },
+        {
+          "config": "{\"name\":\"98088977bb2ac892050c\",\"layouts\":[{\"id\":0,\"position\":{\"x\":736.8806847685892,\"y\":128.9884252667549,\"z\":6,\"width\":329.33214961724656,\"height\":296.3989346555219,\"tabOrder\":6}}],\"singleVisual\":{\"visualType\":\"clusteredBarChart\",\"projections\":{\"Y\":[{\"queryRef\":\"Sum(Car performance.Top Speed)\"}],\"Category\":[{\"queryRef\":\"Car performance.ID Model\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Car performance\",\"Type\":0}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Top Speed\"}},\"Function\":0},\"Name\":\"Sum(Car performance.Top Speed)\",\"NativeReferenceName\":\"Sum of Top Speed\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"ID Model\"},\"Name\":\"Car performance.ID Model\",\"NativeReferenceName\":\"ID Model\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Top Speed\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'TOP 10 cars by maximum speed'\"}}}}}]}}}",
+          "filters": "[{\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Car performance\"}},\"Property\":\"ID Model\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"subquery\",\"Expression\":{\"Subquery\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Car performance\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"ID Model\"},\"Name\":\"field\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Top Speed\"}},\"Function\":0}}}],\"Top\":10}}},\"Type\":2},{\"Name\":\"c\",\"Entity\":\"Car performance\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"ID Model\"}}],\"Table\":{\"SourceRef\":{\"Source\":\"subquery\"}}}}}]},\"type\":\"TopN\",\"howCreated\":0,\"isHiddenInViewMode\":false}]",
+          "height": 296.40,
+          "width": 329.33,
+          "x": 736.88,
+          "y": 128.99,
+          "z": 6.00
+        },
+        {
+          "config": "{\"name\":\"b4ec2997e6e0c25136b0\",\"layouts\":[{\"id\":0,\"position\":{\"x\":37,\"y\":434,\"width\":351,\"height\":286,\"z\":7,\"tabOrder\":7}}],\"singleVisual\":{\"visualType\":\"pythonVisual\",\"projections\":{\"Values\":[{\"queryRef\":\"Sum(Car performance.0-60 Sec)\"},{\"queryRef\":\"Sum(Car performance.0-100 Sec)\"},{\"queryRef\":\"Sum(Car performance.Top Speed)\"},{\"queryRef\":\"Sum(Model.HP)\"},{\"queryRef\":\"Sum(Model.Wt/HP Ratio)\"},{\"queryRef\":\"Car performance.ID Model\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Car performance\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Model\",\"Type\":0}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"0-60 Sec\"}},\"Function\":0},\"Name\":\"Sum(Car performance.0-60 Sec)\",\"NativeReferenceName\":\"Sum of 0-60 Sec\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"0-100 Sec\"}},\"Function\":0},\"Name\":\"Sum(Car performance.0-100 Sec)\",\"NativeReferenceName\":\"Sum of 0-100 Sec\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Top Speed\"}},\"Function\":0},\"Name\":\"Sum(Car performance.Top Speed)\",\"NativeReferenceName\":\"Sum of Top Speed\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"HP\"}},\"Function\":0},\"Name\":\"Sum(Model.HP)\",\"NativeReferenceName\":\"Sum of HP\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Wt/HP Ratio\"}},\"Function\":0},\"Name\":\"Sum(Model.Wt/HP Ratio)\",\"NativeReferenceName\":\"Sum of Wt/HP Ratio\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"ID Model\"},\"Name\":\"Car performance.ID Model\",\"NativeReferenceName\":\"ID Model\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"0-60 Sec\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"script\":[{\"properties\":{\"source\":{\"expr\":{\"Literal\":{\"Value\":\"'# The following code to create a dataframe and remove duplicated rows is always executed and acts as a preamble for your script: \\n\\n# dataset = pandas.DataFrame(0-60 Sec, 0-100 Sec, Top Speed, HP, Wt/HP Ratio)\\n# dataset = dataset.drop_duplicates()\\n\\n# Paste or type your script code here:\\n\\nimport pandas as pd\\nimport numpy as np\\nimport matplotlib.pyplot as plt\\nfrom math import pi\\n\\n# Power BI transmettra les données sous forme de DataFrame, utilisons ''dataset''\\ndf = dataset  # ''dataset'' est l''objet contenant toutes les données de Power BI dans le visuel Python\\n\\n# Assurez-vous que les tables sont correctement fusionnées via \\\"ID Model\\\"\\ndf_car_performance = df[[''ID Model'', ''Top Speed'', ''0-60 Sec'', ''0-100 Sec'']]  # Sélection des colonnes de la table \\\"Car performance\\\"\\ndf_model = df[[''ID Model'', ''HP'', ''Wt/HP Ratio'']]  # Sélection des colonnes de la table \\\"Model\\\"\\n\\ndf_merged = pd.merge(df_car_performance, df_model, on=''ID Model'')\\n\\n# Sélectionner un modèle spécifique (par exemple, prendre le premier modèle pour la visualisation)\\ncar_data = df.iloc[0]\\n\\n# Données à visualiser\\ncategories = [''Top Speed'', ''0-60 Sec'', ''0-100 Sec'', ''HP'', ''Wt/HP Ratio'']\\nvalues = [car_data[''Top Speed''], car_data[''0-60 Sec''], car_data[''0-100 Sec''], car_data[''HP''], car_data[''Wt/HP Ratio'']]\\n\\n# Normaliser les valeurs si nécessaire pour avoir des valeurs similaires\\n# Optionnel : vous pouvez normaliser les données si les échelles sont très différentes\\nmax_values = {''Top Speed'': 300, ''0-60 Sec'': 10, ''0-100 Sec'': 20, ''HP'': 1000, ''Wt/HP Ratio'': 10}\\nvalues_normalized = [value / max_values[category] for value, category in zip(values, categories)]\\n\\n# Créer un graphique radar\\n# Nombre de variables (catégories)\\nN = len(categories)\\n\\n# Calculer l''angle de chaque axe\\nangles = [n / float(N) * 2 * pi for n in range(N)]\\nangles += angles[:1]  # Fermer le cercle\\n\\n# Créer un graphique de la figure\\nfig, ax = plt.subplots(figsize=(6, 6), dpi=100, subplot_kw=dict(polar=True))\\n\\n# Tracer les valeurs\\nax.plot(angles, values_normalized + values_normalized[:1], linewidth=2, linestyle=''solid'', label=car_data[''ID Model''])\\n\\n# Remplir l''intérieur du graphique\\nax.fill(angles, values_normalized + values_normalized[:1], alpha=0.4)\\n\\n# Ajouter les labels des catégories\\nax.set_yticklabels([])  # Supprimer les valeurs de l''axe radial\\nax.set_xticks(angles[:-1])\\nax.set_xticklabels(categories)\\n\\n# Ajouter un titre\\nax.set_title(f\\\"Car Performance: Model {car_data[''ID Model'']}\\\")\\n\\n# Afficher la légende\\nplt.legend(loc=''upper right'', bbox_to_anchor=(0.1, 0.1))\\n\\n# Afficher le graphique\\nplt.show()'\"}}},\"provider\":{\"expr\":{\"Literal\":{\"Value\":\"'Python'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 286.00,
+          "width": 351.00,
+          "x": 37.00,
+          "y": 434.00,
+          "z": 7.00
+        },
+        {
+          "config": "{\"name\":\"f779d9f2b00dab8dad12\",\"layouts\":[{\"id\":0,\"position\":{\"x\":37.049866831940236,\"y\":128.9884252667549,\"z\":4,\"width\":351.2876262583963,\"height\":295.02671736545005,\"tabOrder\":4}}],\"singleVisual\":{\"visualType\":\"clusteredBarChart\",\"projections\":{\"Category\":[{\"queryRef\":\"Car performance.ID Model\",\"active\":true}],\"Y\":[{\"queryRef\":\"Sum(Car performance.0-60 Sec)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Car performance\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"ID Model\"},\"Name\":\"Car performance.ID Model\",\"NativeReferenceName\":\"ID Model\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"0-60 Sec\"}},\"Function\":0},\"Name\":\"Sum(Car performance.0-60 Sec)\",\"NativeReferenceName\":\"Sum of 0-60 Sec\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"0-60 Sec\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"valueAxis\":[{\"properties\":{\"end\":{\"expr\":{\"Literal\":{\"Value\":\"6D\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'the top 10 fastest cars over 0-60 meters'\"}}}}}]}}}",
+          "filters": "[{\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Car performance\"}},\"Property\":\"ID Model\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"subquery\",\"Expression\":{\"Subquery\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Car performance\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"ID Model\"},\"Name\":\"field\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"0-60 Sec\"}},\"Function\":0}}}],\"Top\":10}}},\"Type\":2},{\"Name\":\"c\",\"Entity\":\"Car performance\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"ID Model\"}}],\"Table\":{\"SourceRef\":{\"Source\":\"subquery\"}}}}}]},\"type\":\"TopN\",\"howCreated\":0,\"isHiddenInViewMode\":false}]",
+          "height": 295.03,
+          "width": 351.29,
+          "x": 37.05,
+          "y": 128.99,
+          "z": 4.00
         }
       ],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "Race Long Straights",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "42dd09265ea67d29dddd",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"13d215709205b1107807\",\"layouts\":[{\"id\":0,\"position\":{\"x\":533.3333333333334,\"y\":0,\"z\":1000,\"width\":344.44444444444446,\"height\":91.11111111111111,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Car Category.Performance Categoy Car\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Car Category\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Performance Categoy Car\"},\"Name\":\"Car Category.Performance Categoy Car\",\"NativeReferenceName\":\"Performance Categoy Car\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 91.11,
+          "width": 344.44,
+          "x": 533.33,
+          "y": 0.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"8d48540803014a0ea4e2\",\"layouts\":[{\"id\":0,\"position\":{\"x\":248.88888888888889,\"y\":0,\"z\":2000,\"width\":275.55555555555554,\"height\":91.11111111111111,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Car Category.Class\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Car Category\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Class\"},\"Name\":\"Car Category.Class\",\"NativeReferenceName\":\"Class\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Class\"}}}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{\"orientation\":{\"expr\":{\"Literal\":{\"Value\":\"1D\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 91.11,
+          "width": 275.56,
+          "x": 248.89,
+          "y": 0.00,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"c949248aa8902166081e\",\"layouts\":[{\"id\":0,\"position\":{\"x\":730,\"y\":27.77777777777778,\"z\":6000,\"width\":550,\"height\":380,\"tabOrder\":6000}}],\"singleVisual\":{\"visualType\":\"pythonVisual\",\"projections\":{\"Values\":[{\"queryRef\":\"Sum(Car performance.0-60 Sec)\"},{\"queryRef\":\"Sum(Car performance.0-100 Sec)\"},{\"queryRef\":\"Sum(Car performance.Top Speed)\"},{\"queryRef\":\"Sum(Model.HP)\"},{\"queryRef\":\"Sum(Model.Wt/HP Ratio)\"},{\"queryRef\":\"Model.ID Model\"},{\"queryRef\":\"Sum(Car performance.60-100 sec)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Car performance\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Model\",\"Type\":0}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"0-60 Sec\"}},\"Function\":0},\"Name\":\"Sum(Car performance.0-60 Sec)\",\"NativeReferenceName\":\"Sum of 0-60 Sec\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"0-100 Sec\"}},\"Function\":0},\"Name\":\"Sum(Car performance.0-100 Sec)\",\"NativeReferenceName\":\"Sum of 0-100 Sec\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Top Speed\"}},\"Function\":0},\"Name\":\"Sum(Car performance.Top Speed)\",\"NativeReferenceName\":\"Sum of Top Speed\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"HP\"}},\"Function\":0},\"Name\":\"Sum(Model.HP)\",\"NativeReferenceName\":\"Sum of HP\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Wt/HP Ratio\"}},\"Function\":0},\"Name\":\"Sum(Model.Wt/HP Ratio)\",\"NativeReferenceName\":\"Sum of Wt/HP Ratio\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"ID Model\"},\"Name\":\"Model.ID Model\",\"NativeReferenceName\":\"ID Model\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"60-100 sec\"}},\"Function\":0},\"Name\":\"Sum(Car performance.60-100 sec)\",\"NativeReferenceName\":\"Sum of 60-100 sec\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"0-60 Sec\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"script\":[{\"properties\":{\"source\":{\"expr\":{\"Literal\":{\"Value\":\"'# The following code to create a dataframe and remove duplicated rows is always executed and acts as a preamble for your script: \\n\\n# dataset = pandas.DataFrame(0-60 Sec, 0-100 Sec, Top Speed, HP, Wt/HP Ratio)\\n# dataset = dataset.drop_duplicates()\\n\\n# Paste or type your script code here:\\nimport pandas as pd\\nimport numpy as np\\nimport matplotlib.pyplot as plt\\nfrom math import pi\\n\\n# Power BI transmettra les données sous forme de DataFrame, utilisons ''dataset''\\ndf = dataset  # ''dataset'' est l''objet contenant toutes les données de Power BI dans le visuel Python\\n\\n# Sélection des colonnes de chaque table (Car performance et Model)\\ndf_car_performance = df[[''ID Model'', ''Top Speed'', ''0-100 Sec'', ''60-100 sec'']]\\ndf_model = df[[''ID Model'', ''HP'', ''Wt/HP Ratio'']]\\n\\n# Fusionner les deux tables par la colonne ''ID Model''\\ndf_merged = pd.merge(df_car_performance, df_model, on=''ID Model'')\\n\\n# Vérifier si un modèle a été sélectionné dans Power BI via le slicer\\nselected_models = df_merged[''ID Model''].unique()\\n\\n# Si un seul modèle est sélectionné dans le slicer, Power BI le transmet et nous le récupérons ici\\nif len(selected_models) == 1:\\n    model_to_plot = selected_models[0]  # Le modèle sélectionné dans le slicer\\nelse:\\n    model_to_plot = selected_models[0]  # Si plusieurs modèles sont sélectionnés, prendre le premier (ou gérer autrement)\\n\\n# Extraire les données pour le modèle sélectionné\\nmodel_data = df_merged[df_merged[''ID Model''] == model_to_plot].iloc[0]\\n\\n# Nouvel ordre des catégories avec correction de \\\"60-100 sec\\\"\\ncategories = [''Top Speed'', ''HP'', ''0-100 Sec'', ''60-100 sec'', ''Wt/HP Ratio'']\\nvalues = [model_data[''Top Speed''], model_data[''HP''], model_data[''0-100 Sec''], \\n          model_data[''60-100 sec''], model_data[''Wt/HP Ratio'']]\\n\\n# Plages maximales fixes attribuées à chaque catégorie\\nmax_values_fixed = {\\n    ''Top Speed'': 280,\\n    ''HP'': 1350,\\n    ''0-100 Sec'': 95,\\n    ''60-100 sec'': 80,\\n    ''Wt/HP Ratio'': 75\\n}\\n\\n# Normaliser les valeurs en fonction des plages maximales fixes\\nvalues_normalized = [value / max_values_fixed[category] for value, category in zip(values, categories)]\\n\\n# Créer le graphique radar\\nN = len(categories)\\nangles = [n / float(N) * 2 * pi for n in range(N)]\\nangles += angles[:1]  # Fermer le cercle\\n\\n# Créer la figure pour le graphique avec fond transparent\\nfig, ax = plt.subplots(figsize=(6, 6), dpi=100, subplot_kw=dict(polar=True))\\n\\n# Supprimer le fond de la figure mais garder les grilles et bordures\\nfig.patch.set_alpha(0)  # Rendre le fond de la figure transparent\\nax.set_facecolor(\\\"white\\\")  # Garder un fond blanc pour améliorer la lisibilité\\n\\n# Activer les grilles légèrement moins foncées\\nax.grid(True, linestyle=''solid'', linewidth=1.0, alpha=0.8, color=''dimgray'')  # Grilles légèrement éclaircies\\nax.spines[''polar''].set_visible(True)  # Garder le cercle extérieur plus visible\\nax.spines[''polar''].set_color(''black'')  # Bordures en noir pour un bon contraste\\nax.spines[''polar''].set_linewidth(1.2)  # Bordures un peu plus fines\\n\\n# Tracer les valeurs du modèle\\nax.plot(angles, values_normalized + values_normalized[:1], linewidth=2, linestyle=''solid'', label=f\\\"Model {model_to_plot}\\\", color=''blue'')\\n\\n# Remplir l''intérieur du graphique\\nax.fill(angles, values_normalized + values_normalized[:1], alpha=0.4, color=''blue'')\\n\\n# Ajouter les labels des catégories\\nax.set_yticklabels([])  # Supprimer les valeurs sur l''axe radial\\nax.set_xticks(angles[:-1])  # Définir les positions des labels\\nax.set_xticklabels(categories, color=\\\"black\\\", fontweight=\\\"bold\\\")\\n\\n# Ajouter les annotations des valeurs\\nfor i in range(len(categories)):\\n    ax.text(angles[i], values_normalized[i], \\n            str(round(values[i], 2)), \\n            horizontalalignment=''center'', \\n            verticalalignment=''bottom'', \\n            fontweight=''bold'', color=''black'', size=10)\\n\\n# Afficher la légende\\nplt.legend(loc=''upper right'', bbox_to_anchor=(0.1, 0.1), frameon=False)\\n\\n# Afficher le graphique\\nplt.show()'\"}}},\"provider\":{\"expr\":{\"Literal\":{\"Value\":\"'Python'\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Car performance stats'\"}}},\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'center'\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 380.00,
+          "width": 550.00,
+          "x": 730.00,
+          "y": 27.78,
+          "z": 6000.00
+        },
+        {
+          "config": "{\"name\":\"f8440cb889e007010b20\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":0,\"z\":0,\"width\":248.88888888888889,\"height\":91.11111111111111,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Model.Year\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Model\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Year\"},\"Name\":\"Model.Year\",\"NativeReferenceName\":\"Year\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Between'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[{\"name\":\"d12701275c90b0a44381\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Model\"}},\"Property\":\"Year\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Model\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Year\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"2069L\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false}]",
+          "height": 91.11,
+          "width": 248.89,
+          "x": 0.00,
+          "y": 0.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"feea809957ce0a1dbdc4\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":297.77777777777777,\"z\":6001,\"width\":792.2222222222222,\"height\":252.22222222222223,\"tabOrder\":6001}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"Model.ID Model\"},{\"queryRef\":\"Sum(Model.HP)\"},{\"queryRef\":\"Sum(Car performance.Top Speed)\"},{\"queryRef\":\"Sum(Model.Wt/HP Ratio)\"},{\"queryRef\":\"Sum(Car performance.60-100 sec)\"},{\"queryRef\":\"Sum(Car performance.0-100 Sec)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Model\",\"Type\":0},{\"Name\":\"c\",\"Entity\":\"Car performance\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"ID Model\"},\"Name\":\"Model.ID Model\",\"NativeReferenceName\":\"ID Model\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Top Speed\"}},\"Function\":0},\"Name\":\"Sum(Car performance.Top Speed)\",\"NativeReferenceName\":\"Sum of Top Speed\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Wt/HP Ratio\"}},\"Function\":0},\"Name\":\"Sum(Model.Wt/HP Ratio)\",\"NativeReferenceName\":\"Sum of Wt/HP Ratio\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"HP\"}},\"Function\":0},\"Name\":\"Sum(Model.HP)\",\"NativeReferenceName\":\"Sum of HP\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"0-100 Sec\"}},\"Function\":0},\"Name\":\"Sum(Car performance.0-100 Sec)\",\"NativeReferenceName\":\"Sum of 0-100 Sec\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"60-100 sec\"}},\"Function\":0},\"Name\":\"Sum(Car performance.60-100 sec)\",\"NativeReferenceName\":\"Sum of 60-100 sec\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"0-100 Sec\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"columnWidth\":[{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"209.25000197896836D\"}}}},\"selector\":{\"metadata\":\"Model.ID Model\"}}],\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 252.22,
+          "width": 792.22,
+          "x": 0.00,
+          "y": 297.78,
+          "z": 6001.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "Racing with tight turns",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "fedbd184d21c12626904",
+      "ordinal": 2,
+      "visualContainers": [],
       "width": 1280.00
     }
   ]
