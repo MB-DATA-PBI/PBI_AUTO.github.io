@@ -4,7 +4,7 @@
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"Car performance\",\"Errors in data\",\"Brand\",\"Model\",\"Car Category\"]"
+        "value": "[\"Car performance\",\"Brand\",\"Model\",\"Car Category\",\"Incomplete car data\"]"
       },
       {
         "name": "__PBI_TimeIntelligenceEnabled",
@@ -37,53 +37,6 @@
       "returnErrorValuesAsNull": true
     },
     "defaultPowerBIDataSourceVersion": "powerBI_V3",
-    "expressions": [
-      {
-        "name": "Errors in data",
-        "annotations": [
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
-          },
-          {
-            "name": "PBI_ResultType",
-            "value": "Exception"
-          }
-        ],
-        "expression": [
-          "let\r",
-          "Source = #\"Car performance\",\r",
-          "  #\"Detected Type Mismatches\" = let\r",
-          "    tableWithOnlyPrimitiveTypes = Table.SelectColumns(Source, Table.ColumnsOfType(Source, {type nullable number, type nullable text, type nullable logical, type nullable date, type nullable datetime, type nullable datetimezone, type nullable time, type nullable duration})),\r",
-          "    recordTypeFields = Type.RecordFields(Type.TableRow(Value.Type(tableWithOnlyPrimitiveTypes))),\r",
-          "    fieldNames = Record.FieldNames(recordTypeFields),\r",
-          "    fieldTypes = List.Transform(Record.ToList(recordTypeFields), each [Type]),\r",
-          "    pairs = List.Transform(List.Positions(fieldNames), (i) => {fieldNames{i}, (v) => if v = null or Value.Is(v, fieldTypes{i}) then v else error [Message = \"The type of the value does not match the type of the column.\", Detail = v], fieldTypes{i}})\r",
-          "in\r",
-          "    Table.TransformColumns(Source, pairs),\r",
-          "  #\"Added Index\" = Table.AddIndexColumn(#\"Detected Type Mismatches\", \"Row Number\" ,1),\r",
-          "  #\"Kept Errors\" = Table.SelectRowsWithErrors(#\"Added Index\", {\"Year\", \"Brand\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"}),\r",
-          "  #\"Reordered Columns\" = Table.ReorderColumns(#\"Kept Errors\", {\"Row Number\", \"Year\", \"Brand\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"})\r",
-          "in\r",
-          "    #\"Reordered Columns\""
-        ],
-        "kind": "m",
-        "lineageTag": "5fb5f8a2-1183-4a86-acda-6d12341b64cc",
-        "queryGroup": "Query Errors - 30/01/2025 17:14:35"
-      }
-    ],
-    "queryGroups": [
-      {
-        "annotations": [
-          {
-            "name": "PBI_QueryGroupOrder",
-            "value": "0"
-          }
-        ],
-        "description": "Errors in queries that were loaded on 30/01/2025 17:14:35.",
-        "folder": "Query Errors - 30/01/2025 17:14:35"
-      }
-    ],
     "relationships": [
       {
         "name": "AutoDetected_8fc6a869-9af9-4a6a-aa08-987054c820d6",
@@ -142,12 +95,16 @@
               {
                 "name": "SummarizationSetBy",
                 "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
               }
             ],
-            "dataType": "string",
+            "dataType": "double",
             "lineageTag": "0283cdf0-b523-452c-8c21-ead55a7d9e4d",
             "sourceColumn": "0-60 Sec",
-            "summarizeBy": "none"
+            "summarizeBy": "sum"
           },
           {
             "name": "0-100 Sec",
@@ -155,12 +112,16 @@
               {
                 "name": "SummarizationSetBy",
                 "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
               }
             ],
-            "dataType": "string",
+            "dataType": "double",
             "lineageTag": "99b6774c-16e5-44b4-9e69-b317f59f4738",
             "sourceColumn": "0-100 Sec",
-            "summarizeBy": "none"
+            "summarizeBy": "sum"
           },
           {
             "name": "Top Speed",
@@ -185,12 +146,16 @@
               {
                 "name": "SummarizationSetBy",
                 "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
               }
             ],
-            "dataType": "string",
+            "dataType": "double",
             "lineageTag": "53011375-a27f-4f1b-9a52-0224c8c24bd4",
             "sourceColumn": "60-0 Feet",
-            "summarizeBy": "none"
+            "summarizeBy": "sum"
           },
           {
             "name": "100-0 Feet",
@@ -198,12 +163,16 @@
               {
                 "name": "SummarizationSetBy",
                 "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
               }
             ],
-            "dataType": "string",
+            "dataType": "double",
             "lineageTag": "a496606f-75a8-4cde-abb2-c9a30eb56353",
             "sourceColumn": "100-0 Feet",
-            "summarizeBy": "none"
+            "summarizeBy": "sum"
           },
           {
             "name": "60mph g's",
@@ -245,12 +214,16 @@
               {
                 "name": "SummarizationSetBy",
                 "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
               }
             ],
-            "dataType": "string",
+            "dataType": "double",
             "lineageTag": "54047f65-b1f8-4fc5-84a0-31cf8df88544",
             "sourceColumn": "60-100 sec",
-            "summarizeBy": "none"
+            "summarizeBy": "sum"
           },
           {
             "name": "ID Model",
@@ -290,6 +263,19 @@
             "lineageTag": "c46a6b65-2a14-481c-8cdf-4fa4df251262",
             "sourceColumn": "ID Class",
             "summarizeBy": "none"
+          },
+          {
+            "name": "Errors Factors",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "845bd00a-4179-4c65-947e-273e4e653e4a",
+            "sourceColumn": "Errors Factors",
+            "summarizeBy": "none"
           }
         ],
         "lineageTag": "1db72cf6-a6fb-4ca7-b99c-08e4160cff8a",
@@ -303,7 +289,30 @@
                 "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\boudl\\Documents\\Projet Dekra\\PBI_AUTO.github.io\\Projet Dekra\\Test-data.xlsx\"), null, true),",
                 "    data_Sheet = Source{[Item=\"data\",Kind=\"Sheet\"]}[Data],",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(data_Sheet, [PromoteAllScalars=true]),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Year\", Int64.Type}, {\"Brand\", type text}, {\"MODELS\", type any}, {\"Class\", type text}, {\"Performance Indicator\", Int64.Type}, {\"HP\", Int64.Type}, {\"Torque\", Int64.Type}, {\"Weight\", Int64.Type}, {\"Wt/HP Ratio\", type number}, {\"Engine position\", type text}, {\"Drive\", type text}, {\"Cylinder\", type any}, {\"Country\", type text}, {\"0-60 Sec\", type any}, {\"0-100 Sec\", type any}, {\"Top Speed\", type number}, {\"60-0 Feet\", type any}, {\"100-0 Feet\", type any}, {\"60mph g's\", type number}, {\"100mph g's\", type number}, {\"60-100 sec\", type any}}),",
+                "    #\"Changed Type4\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Torque\", Int64.Type}, {\"HP\", Int64.Type}, {\"Performance Indicator\", Int64.Type}, {\"Class\", type text}, {\"MODELS\", type text}, {\"Brand\", type text}, {\"Year\", Int64.Type}, {\"Weight\", Int64.Type}, {\"Wt/HP Ratio\", type number}, {\"Engine position\", type text}, {\"Drive\", type text}, {\"Cylinder\", type text}, {\"Country\", type text}, {\"0-60 Sec\", type number}, {\"0-100 Sec\", type number}, {\"Top Speed\", type number}, {\"60-0 Feet\", type number}, {\"100-0 Feet\", type number}}),",
+                "    #\"Added Custom\" = Table.AddColumn(#\"Changed Type4\", \"Errors Factors\", each let",
+                "    YearCheck = if not (Value.Is([Year], type number) and [Year] <= Date.Year(DateTime.LocalNow())) then \"Année invalide\" else null,",
+                "    ClassCheck = if Text.Length([Class]) > 2 then \"Class contient plus de 2 lettres\" else null,",
+                "    PerfCheck = if not Value.Is([Performance Indicator], type number) then \"Performance Indicator invalide\" else null,",
+                "    HPCheck = if not Value.Is([HP], type number) then \"HP invalide\" else null,",
+                "    TorqueCheck = if not Value.Is([Torque], type number) then \"Torque invalide\" else null,",
+                "    WeightCheck = if not Value.Is([Weight], type number) then \"Weight invalide\" else null,",
+                "    WtHPCheck = if not Value.Is([#\"Wt/HP Ratio\"], type number) then \"Wt/HP Ratio invalide\" else null,",
+                "    EnginePosCheck = if not (Value.Is([Engine position], type text)) then \"Engine position invalide\" else null,",
+                "    DriveCheck = if not Value.Is([Drive], type text) or Text.Length([Drive]) <> 1 then \"Drive invalide\" else null,",
+                "    Sec60Check = if not Value.Is([#\"0-60 Sec\"], type number) then \"0-60 Sec invalide\" else null,",
+                "    Sec100Check = if not Value.Is([#\"0-100 Sec\"], type number) then \"0-100 Sec invalide\" else null,",
+                "    SpeedCheck = if not Value.Is([Top Speed], type number) then \"Top Speed invalide\" else null,",
+                "    Feet60Check = if not Value.Is([#\"60-0 Feet\"], type number) then \"60-0 Feet invalide\" else null,",
+                "    Feet100Check = if not Value.Is([#\"100-0 Feet\"], type number) then \"100-0 Feet invalide\" else null,",
+                "    G60Check = if not Value.Is([#\"60mph g's\"], type number) then \"60mph g's invalide\" else null,",
+                "    G100Check = if not Value.Is([#\"100mph g's\"], type number) then \"100mph g's invalide\" else null,",
+                "    Sec60100Check = if not Value.Is([#\"60-100 sec\"], type number) then \"60-100 sec invalide\" else null,",
+                "    Erreur = Text.Combine(List.RemoveNulls({YearCheck, ClassCheck, PerfCheck, HPCheck, TorqueCheck, WeightCheck, WtHPCheck, EnginePosCheck, DriveCheck, Sec60Check, Sec100Check, SpeedCheck, Feet60Check, Feet100Check, G60Check, G100Check, Sec60100Check}), \", \")",
+                "in",
+                "    Erreur),",
+                "    #\"Changed Type3\" = Table.TransformColumnTypes(#\"Added Custom\",{{\"Errors Factors\", type text}, {\"60mph g's\", type number}, {\"100mph g's\", type number}, {\"60-100 sec\", type number}}),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Changed Type3\",{{\"0-100 Sec\", type number}}),",
                 "    // Création colonne Index",
                 "    #\"Added column Index\" = Table.AddIndexColumn(#\"Changed Type\", \"Index\", 1, 1, Int64.Type),",
                 "    // Positionnement de la colonne en 1er",
@@ -324,9 +333,11 @@
                 "    #\"Reordered Columns1\" = Table.ReorderColumns(#\"Removed Columns\",{\"ID\", \"ID Model\", \"ID Brand\", \"Year\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"}),",
                 "    #\"Changed Type2\" = Table.TransformColumnTypes(#\"Reordered Columns1\",{{\"ID Model\", type text}}),",
                 "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Changed Type2\",{{\"Class\", \"ID Class\"}}),",
-                "    #\"Removed Columns1\" = Table.RemoveColumns(#\"Renamed Columns1\",{\"ID\", \"Year\", \"MODELS\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\"})",
+                "    #\"Removed Columns1\" = Table.RemoveColumns(#\"Renamed Columns1\",{\"ID\", \"Year\", \"MODELS\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\"}),",
+                "    #\"Reordered Columns2\" = Table.ReorderColumns(#\"Removed Columns1\",{\"ID Model\", \"ID Brand\", \"ID Class\", \"Performance Indicator\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\", \"Errors Factors\"}),",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Reordered Columns2\", each ([Errors Factors] = \"\"))",
                 "in",
-                "    #\"Removed Columns1\""
+                "    #\"Filtered Rows\""
               ],
               "type": "m"
             }
@@ -423,9 +434,10 @@
                 "    #\"Removed Other Columns\" = Table.SelectColumns(#\"Added column ID Model\",{\"Brand\", \"Country\"}),",
                 "    #\"Removed Duplicates\" = Table.Distinct(#\"Removed Other Columns\", {\"Brand\"}),",
                 "    #\"Added Index\" = Table.AddIndexColumn(#\"Removed Duplicates\", \"Index\", 1, 1, Int64.Type),",
-                "    #\"Added Custom\" = Table.AddColumn(#\"Added Index\", \"ID Brand\", each Text.Upper(Text.Start([Brand], 1)) & Text.PadStart(Text.From([Index]), 3, \"0\"))",
+                "    #\"Added Custom\" = Table.AddColumn(#\"Added Index\", \"ID Brand\", each Text.Upper(Text.Start([Brand], 1)) & Text.PadStart(Text.From([Index]), 3, \"0\")),",
+                "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Added Custom\",{{\"ID Brand\", type text}})",
                 "in",
-                "    #\"Added Custom\""
+                "    #\"Changed Type1\""
               ],
               "type": "m"
             }
@@ -640,9 +652,10 @@
                 "    #\"Replaced Engine P Value3\" = Table.ReplaceValue(#\"Replaced Engine P Value2\",\"M\",\"Middle\",Replacer.ReplaceText,{\"Engine position\"}),",
                 "    #\"Replaced Drive Value1\" = Table.ReplaceValue(#\"Replaced Engine P Value3\",\"A\",\"All wheel drive\",Replacer.ReplaceText,{\"Drive\"}),",
                 "    #\"Replaced Drive Value2\" = Table.ReplaceValue(#\"Replaced Drive Value1\",\"R\",\"Rear wheel drive\",Replacer.ReplaceText,{\"Drive\"}),",
-                "    #\"Replaced Drive Value3\" = Table.ReplaceValue(#\"Replaced Drive Value2\",\"F\",\"Front wheel drive\",Replacer.ReplaceText,{\"Drive\"})",
+                "    #\"Replaced Drive Value3\" = Table.ReplaceValue(#\"Replaced Drive Value2\",\"F\",\"Front wheel drive\",Replacer.ReplaceText,{\"Drive\"}),",
+                "    #\"Changed Type3\" = Table.TransformColumnTypes(#\"Replaced Drive Value3\",{{\"Cylinder\", type text}})",
                 "in",
-                "    #\"Replaced Drive Value3\""
+                "    #\"Changed Type3\""
               ],
               "type": "m"
             }
@@ -756,6 +769,288 @@
                 "    #\"Changed Type4\" = Table.TransformColumnTypes(#\"Added Custom1\",{{\"Performance Categoy Car\", type text}})",
                 "in",
                 "    #\"Changed Type4\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Incomplete car data",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "ID Model",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "bff396af-7890-42be-b9d9-7952d8dbe6e4",
+            "sourceColumn": "ID Model",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ID Brand",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "11782746-1d3b-4955-b6bc-a95646f7b435",
+            "sourceColumn": "ID Brand",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ID Class",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "68294b0b-c9e0-4584-8942-315afe08e6e5",
+            "sourceColumn": "ID Class",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Performance Indicator",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "937e212f-b1f6-4c6f-b063-7750afd103f3",
+            "sourceColumn": "Performance Indicator",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "0-60 Sec",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "5a7762ec-2ca2-4baf-a46e-0fde2722245b",
+            "sourceColumn": "0-60 Sec",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "0-100 Sec",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "ea13f696-7962-46a7-9e57-53a8b69fbb37",
+            "sourceColumn": "0-100 Sec",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Top Speed",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "84b92ea6-e44f-4c6e-ae66-b129efa8207d",
+            "sourceColumn": "Top Speed",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "60-0 Feet",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "9735167f-ecdc-42bb-9aa6-e4816e921c96",
+            "sourceColumn": "60-0 Feet",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "100-0 Feet",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "d257e985-f573-4ebc-8c3e-76c77abb94ec",
+            "sourceColumn": "100-0 Feet",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "60mph g's",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "8c777f73-8eb5-4c0a-aaf3-c8745bb96ffe",
+            "sourceColumn": "60mph g's",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "100mph g's",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "06f4b015-1dfc-4eb5-b843-687fa45f27e0",
+            "sourceColumn": "100mph g's",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "60-100 sec",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "7aac22e1-c1fc-42f1-bc40-ed48586d78dd",
+            "sourceColumn": "60-100 sec",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Errors Factors",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "41559f36-dd97-4f99-af76-85044eb4cbf7",
+            "sourceColumn": "Errors Factors",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "e93e3fbc-1a29-4edc-8bd3-70067f0085eb",
+        "partitions": [
+          {
+            "name": "Incomplete car data",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\boudl\\Documents\\Projet Dekra\\PBI_AUTO.github.io\\Projet Dekra\\Test-data.xlsx\"), null, true),",
+                "    data_Sheet = Source{[Item=\"data\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(data_Sheet, [PromoteAllScalars=true]),",
+                "    #\"Changed Type4\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Torque\", Int64.Type}, {\"HP\", Int64.Type}, {\"Performance Indicator\", Int64.Type}, {\"Class\", type text}, {\"MODELS\", type text}, {\"Brand\", type text}, {\"Year\", Int64.Type}, {\"Weight\", Int64.Type}, {\"Wt/HP Ratio\", type number}, {\"Engine position\", type text}, {\"Drive\", type text}, {\"Cylinder\", type text}, {\"Country\", type text}, {\"0-60 Sec\", type number}, {\"0-100 Sec\", type number}, {\"Top Speed\", type number}, {\"60-0 Feet\", type number}, {\"100-0 Feet\", type number}}),",
+                "    #\"Added Custom\" = Table.AddColumn(#\"Changed Type4\", \"Errors Factors\", each let",
+                "    YearCheck = if not (Value.Is([Year], type number) and [Year] <= Date.Year(DateTime.LocalNow())) then \"Année invalide\" else null,",
+                "    ClassCheck = if Text.Length([Class]) > 2 then \"Class contient plus de 2 lettres\" else null,",
+                "    PerfCheck = if not Value.Is([Performance Indicator], type number) then \"Performance Indicator invalide\" else null,",
+                "    HPCheck = if not Value.Is([HP], type number) then \"HP invalide\" else null,",
+                "    TorqueCheck = if not Value.Is([Torque], type number) then \"Torque invalide\" else null,",
+                "    WeightCheck = if not Value.Is([Weight], type number) then \"Weight invalide\" else null,",
+                "    WtHPCheck = if not Value.Is([#\"Wt/HP Ratio\"], type number) then \"Wt/HP Ratio invalide\" else null,",
+                "    EnginePosCheck = if not (Value.Is([Engine position], type text)) then \"Engine position invalide\" else null,",
+                "    DriveCheck = if not Value.Is([Drive], type text) or Text.Length([Drive]) <> 1 then \"Drive invalide\" else null,",
+                "    Sec60Check = if not Value.Is([#\"0-60 Sec\"], type number) then \"0-60 Sec invalide\" else null,",
+                "    Sec100Check = if not Value.Is([#\"0-100 Sec\"], type number) then \"0-100 Sec invalide\" else null,",
+                "    SpeedCheck = if not Value.Is([Top Speed], type number) then \"Top Speed invalide\" else null,",
+                "    Feet60Check = if not Value.Is([#\"60-0 Feet\"], type number) then \"60-0 Feet invalide\" else null,",
+                "    Feet100Check = if not Value.Is([#\"100-0 Feet\"], type number) then \"100-0 Feet invalide\" else null,",
+                "    G60Check = if not Value.Is([#\"60mph g's\"], type number) then \"60mph g's invalide\" else null,",
+                "    G100Check = if not Value.Is([#\"100mph g's\"], type number) then \"100mph g's invalide\" else null,",
+                "    Sec60100Check = if not Value.Is([#\"60-100 sec\"], type number) then \"60-100 sec invalide\" else null,",
+                "    Erreur = Text.Combine(List.RemoveNulls({YearCheck, ClassCheck, PerfCheck, HPCheck, TorqueCheck, WeightCheck, WtHPCheck, EnginePosCheck, DriveCheck, Sec60Check, Sec100Check, SpeedCheck, Feet60Check, Feet100Check, G60Check, G100Check, Sec60100Check}), \", \")",
+                "in",
+                "    Erreur),",
+                "    #\"Changed Type3\" = Table.TransformColumnTypes(#\"Added Custom\",{{\"Errors Factors\", type text}, {\"60mph g's\", type number}, {\"100mph g's\", type number}, {\"60-100 sec\", type number}}),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Changed Type3\",{{\"0-100 Sec\", type number}}),",
+                "    // Création colonne Index",
+                "    #\"Added column Index\" = Table.AddIndexColumn(#\"Changed Type\", \"Index\", 1, 1, Int64.Type),",
+                "    // Positionnement de la colonne en 1er",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Added column Index\",{\"Index\", \"Year\", \"Brand\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"}),",
+                "    // Renommage de la colonne Index en ID",
+                "    #\"Renamed Column Index => ID\" = Table.RenameColumns(#\"Reordered Columns\",{{\"Index\", \"ID\"}}),",
+                "    #\"Added column ID Model\" = Table.AddColumn(#\"Renamed Column Index => ID\", \"ID Model\", each Text.PadStart(Text.From([Year]) & \"_\" & Text.Start([Brand], 1) & \"_\" & Text.Combine(List.Transform(Text.Split([MODELS], \" \"), each Text.Start(_, 3)), \"\") & \"_\" & ",
+                "    Text.From([HP]) & \"_\" & ",
+                "    Text.From([Torque]) & \"_\" & ",
+                "    Text.From([Weight]), ",
+                "    15, \"0\"",
+                ")),",
+                "    #\"Merged Queries\" = Table.NestedJoin(#\"Added column ID Model\", {\"Brand\"}, Brand, {\"Brand\"}, \"Brand.1\", JoinKind.LeftOuter),",
+                "    #\"Expanded Brand.1\" = Table.ExpandTableColumn(#\"Merged Queries\", \"Brand.1\", {\"ID Brand\"}, {\"Brand.1.ID Brand\"}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Expanded Brand.1\",{{\"Brand.1.ID Brand\", \"ID Brand\"}}),",
+                "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Renamed Columns\",{{\"ID Brand\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type1\",{\"Brand\"}),",
+                "    #\"Reordered Columns1\" = Table.ReorderColumns(#\"Removed Columns\",{\"ID\", \"ID Model\", \"ID Brand\", \"Year\", \"MODELS\", \"Class\", \"Performance Indicator\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\"}),",
+                "    #\"Changed Type2\" = Table.TransformColumnTypes(#\"Reordered Columns1\",{{\"ID Model\", type text}}),",
+                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Changed Type2\",{{\"Class\", \"ID Class\"}}),",
+                "    #\"Removed Columns1\" = Table.RemoveColumns(#\"Renamed Columns1\",{\"ID\", \"Year\", \"MODELS\", \"HP\", \"Torque\", \"Weight\", \"Wt/HP Ratio\", \"Engine position\", \"Drive\", \"Cylinder\", \"Country\"}),",
+                "    #\"Reordered Columns2\" = Table.ReorderColumns(#\"Removed Columns1\",{\"ID Model\", \"ID Brand\", \"ID Class\", \"Performance Indicator\", \"0-60 Sec\", \"0-100 Sec\", \"Top Speed\", \"60-0 Feet\", \"100-0 Feet\", \"60mph g's\", \"100mph g's\", \"60-100 sec\", \"Errors Factors\"}),",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Reordered Columns2\", each ([Errors Factors] <> \"\"))",
+                "in",
+                "    #\"Filtered Rows\""
               ],
               "type": "m"
             }

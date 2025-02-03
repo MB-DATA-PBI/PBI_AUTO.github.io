@@ -10,8 +10,8 @@
       "nodes": [
         {
           "location": {
-            "x": 1396.1047840000003,
-            "y": 175.40305824999984
+            "x": 1148.086244,
+            "y": 0
           },
           "nodeIndex": "Brand",
           "nodeLineageTag": "bbcd9fdc-a64b-42bf-9cfd-fd4674492490",
@@ -23,8 +23,8 @@
         },
         {
           "location": {
-            "x": 1051.8717100000003,
-            "y": 173.63613224999983
+            "x": 757.79258400000015,
+            "y": 26.596569249999703
           },
           "nodeIndex": "Model",
           "nodeLineageTag": "f2e15083-880a-4cde-84a5-8bc7e96fd993",
@@ -36,8 +36,8 @@
         },
         {
           "location": {
-            "x": 153.55520599999909,
-            "y": 589.79330825000022
+            "x": 0,
+            "y": 148.67461924999975
           },
           "nodeIndex": "Car Category",
           "nodeLineageTag": "ee4bf580-0852-4ccc-bf69-bbdb4804f67b",
@@ -49,12 +49,26 @@
         },
         {
           "location": {
-            "x": 706.53815600000064,
-            "y": 254.14184325000014
+            "x": 371.71312700000033,
+            "y": 192.13720825000007
           },
           "nodeIndex": "Car performance",
+          "nodeLineageTag": "1db72cf6-a6fb-4ca7-b99c-08e4160cff8a",
           "size": {
             "height": 694,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1134.463996,
+            "y": 339.12919012500004
+          },
+          "nodeIndex": "Incomplete car data",
+          "nodeLineageTag": "e93e3fbc-1a29-4edc-8bd3-70067f0085eb",
+          "size": {
+            "height": 427.55239200000017,
             "width": 234
           },
           "zIndex": 0
