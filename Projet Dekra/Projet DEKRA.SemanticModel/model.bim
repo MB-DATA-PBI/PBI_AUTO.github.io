@@ -1102,22 +1102,271 @@
             "value": "Table"
           }
         ],
-        "columns": [
+        "lineageTag": "95d613f8-860c-474e-8c2f-893884d95bc2",
+        "measures": [
           {
-            "name": "Column1",
+            "name": "HP_Norm",
             "annotations": [
               {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
               }
             ],
-            "dataType": "string",
-            "lineageTag": "ccc8ce62-3f48-45da-a234-9ebb40e591c8",
-            "sourceColumn": "Column1",
-            "summarizeBy": "none"
+            "expression": [
+              "",
+              "VAR MinValue = MINX(ALL('Model'), 'Model'[HP])",
+              "VAR MaxValue = MAXX(ALL('Model'), 'Model'[HP])",
+              "RETURN ",
+              "DIVIDE(SELECTEDVALUE('Model'[HP]) - MinValue, MaxValue - MinValue)"
+            ],
+            "lineageTag": "1497b735-9c84-4249-a475-2dd01d55e87c"
+          },
+          {
+            "name": "Top_Speed_Norm",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "VAR MinValue = MINX(ALL('Car performance'), 'Car performance'[Top Speed])",
+              "VAR MaxValue = MAXX(ALL('Car performance'), 'Car performance'[Top Speed])",
+              "RETURN ",
+              "DIVIDE(SELECTEDVALUE('Car performance'[Top Speed]) - MinValue, MaxValue - MinValue, 0)"
+            ],
+            "lineageTag": "40afeba9-b9b6-4b63-a723-4bdebad2a158"
+          },
+          {
+            "name": "0_60Sec_Norm",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "VAR MinValue = MINX(ALL('Car performance'), 'Car performance'[0-60 Sec])",
+              "VAR MaxValue = MAXX(ALL('Car performance'), 'Car performance'[0-60 Sec])",
+              "RETURN ",
+              "1 - DIVIDE(SELECTEDVALUE('Car performance'[0-60 Sec]) - MinValue, MaxValue - MinValue, 0)"
+            ],
+            "lineageTag": "fc134a89-d9e4-4e44-a275-5cb4c6b318a0"
+          },
+          {
+            "name": "0_100Sec_Norm",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "VAR MinValue = MINX(ALL('Car performance'), 'Car performance'[0-100 Sec])",
+              "VAR MaxValue = MAXX(ALL('Car performance'), 'Car performance'[0-100 Sec])",
+              "RETURN ",
+              "1 - DIVIDE(SELECTEDVALUE('Car performance'[0-100 Sec]) - MinValue, MaxValue - MinValue, 0)"
+            ],
+            "lineageTag": "65d77bad-be15-4024-8dd8-021edd7c40ab"
+          },
+          {
+            "name": "60_100Sec_Norm",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "VAR MinValue = MINX(ALL('Car performance'), 'Car performance'[60-100 sec])",
+              "VAR MaxValue = MAXX(ALL('Car performance'), 'Car performance'[60-100 sec])",
+              "RETURN ",
+              "1 - DIVIDE(SELECTEDVALUE('Car performance'[60-100 sec]) - MinValue, MaxValue - MinValue, 0)"
+            ],
+            "lineageTag": "5ac93787-7f33-4a5d-81be-d5c530f6be80"
+          },
+          {
+            "name": "60_0Feet_Norm",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "VAR MinValue = MINX(ALL('Car performance'), 'Car performance'[60-0 Feet])",
+              "VAR MaxValue = MAXX(ALL('Car performance'), 'Car performance'[60-0 Feet])",
+              "RETURN ",
+              "1 - DIVIDE(SELECTEDVALUE('Car performance'[60-0 Feet]) - MinValue, MaxValue - MinValue, 0)"
+            ],
+            "lineageTag": "dca9e6f2-6da7-4db6-a32f-95dfdc70709c"
+          },
+          {
+            "name": "100_0Feet_Norm",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "VAR MinValue = MINX(ALL('Car performance'), 'Car performance'[100-0 Feet])",
+              "VAR MaxValue = MAXX(ALL('Car performance'), 'Car performance'[100-0 Feet])",
+              "RETURN ",
+              "1 - DIVIDE(SELECTEDVALUE('Car performance'[100-0 Feet]) - MinValue, MaxValue - MinValue, 0)"
+            ],
+            "lineageTag": "8e510f11-29bc-4768-9802-c2bae426358e"
+          },
+          {
+            "name": "60mphG_Norm",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "VAR MinValue = MINX(ALL('Car performance'), 'Car performance'[60mph g's])",
+              "VAR MaxValue = MAXX(ALL('Car performance'), 'Car performance'[60mph g's])",
+              "RETURN ",
+              "DIVIDE(SELECTEDVALUE('Car performance'[60mph g's]) - MinValue, MaxValue - MinValue, 0)"
+            ],
+            "lineageTag": "98581551-13c6-4ba6-85b3-40c94d594840"
+          },
+          {
+            "name": "100mph_G_Norm",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "VAR MinValue = MINX(ALL('Car performance'), 'Car performance'[100mph g's])",
+              "VAR MaxValue = MAXX(ALL('Car performance'), 'Car performance'[100mph g's])",
+              "RETURN ",
+              "DIVIDE(SELECTEDVALUE('Car performance'[100mph g's]) - MinValue, MaxValue - MinValue, 0)"
+            ],
+            "lineageTag": "728d987c-f237-4f9e-b3ff-1e5d3a65a1e3"
+          },
+          {
+            "name": "Wt/HP_Ratio_Norm",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "VAR MinValue = MINX(ALL('Model'), 'Model'[Wt/HP Ratio])",
+              "VAR MaxValue = MAXX(ALL('Model'), 'Model'[Wt/HP Ratio])",
+              "RETURN ",
+              "1 - DIVIDE(SELECTEDVALUE('Model'[Wt/HP Ratio]) - MinValue, MaxValue - MinValue, 0)"
+            ],
+            "lineageTag": "4c9f0471-f5bc-456a-8d16-676a130fe2fa"
+          },
+          {
+            "name": "Score_Long_Straights",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "    0.30 * [Top_Speed_Norm] +  -- 30% pour la vitesse maximale (Top Speed)",
+              "    0.25 * [HP_Norm] +        -- 25% pour la puissance (HP)",
+              "    0.20 * [0_100Sec_Norm] +  -- 20% pour le temps de 0-100 sec (plus le temps est faible, mieux c'est)",
+              "    0.15 * [60_100Sec_Norm] + -- 15% pour le temps de 60-100 sec",
+              "    0.10 * [Wt/HP_Ratio_Norm]        -- 10% pour le rapport poids/puissance (WtHP)"
+            ],
+            "lineageTag": "d3935b84-4178-4828-8e8b-1b38d704f834"
+          },
+          {
+            "name": "Score_Tight_Turns",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "    0.25 * [0_60Sec_Norm] +      -- 25% pour le temps de 0-60 sec (accélération en courbe)",
+              "    0.20 * [60_0Feet_Norm] +     -- 20% pour la distance de freinage de 60 à 0 pieds",
+              "    0.20 * [100_0Feet_Norm] +    -- 20% pour la distance de freinage de 100 à 0 pieds",
+              "    0.15 * [60mphG_Norm] +       -- 15% pour la capacité de virage à 60 mph (adhérence)",
+              "    0.10 * [100mph_G_Norm] +      -- 10% pour la capacité de virage à 100 mph",
+              "    0.10 * [Wt/HP_Ratio_Norm]          -- 10% pour le rapport poids/puissance"
+            ],
+            "lineageTag": "b3925584-7513-488e-9d4b-e0f8a4e0959b"
+          },
+          {
+            "name": "Score_Mixte",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "    0.20 * [Top_Speed_Norm] +        -- 20% pour la vitesse maximale",
+              "    0.20 * [HP_Norm] +              -- 20% pour la puissance",
+              "    0.15 * [0_60Sec_Norm] +         -- 15% pour le temps de 0-60 sec",
+              "    0.15 * [60_100Sec_Norm] +       -- 15% pour le temps de 60-100 sec",
+              "    0.15 * [60mphG_Norm] +          -- 15% pour l'adhérence à 60 mph",
+              "    0.15 * [100_0Feet_Norm]       -- 15% pour la distance de freinage de 100 à 0 pieds"
+            ],
+            "lineageTag": "826970a9-e61e-4f0b-9bac-cecf0f4de1f6"
+          },
+          {
+            "name": "Rank_Long_Straights_GBL",
+            "expression": "RANKX(ALL('Model'), [Score_Long_Straights], , DESC, DENSE)",
+            "formatString": "0",
+            "lineageTag": "dde37e1c-995c-4eed-98ee-a8b980285dac"
+          },
+          {
+            "name": "Rank_Tight_Turns_GLB",
+            "expression": "RANKX(ALL('Model'), [Score_Tight_Turns], , DESC, DENSE)",
+            "formatString": "0",
+            "lineageTag": "41e7319c-7fda-4e2b-a82c-15aede7cbe72"
+          },
+          {
+            "name": "Rank_Mixed_GLB",
+            "expression": "RANKX(ALL('Model'), [Score_Mixte], , DESC, DENSE)",
+            "formatString": "0",
+            "lineageTag": "4a837828-71ea-48a1-b690-fca73d1ce6ef"
+          },
+          {
+            "name": "Rank_Mixed",
+            "expression": "RANKX(ALLSELECTED('Model'), [Score_Mixte], , DESC, DENSE)",
+            "formatString": "0",
+            "lineageTag": "f35cbefe-129c-49eb-aa1e-5ae8c9f71efe"
+          },
+          {
+            "name": "Rank_Tight_Turns",
+            "expression": "RANKX(ALLSELECTED('Model'), [Score_Tight_Turns], , DESC, DENSE)",
+            "formatString": "0",
+            "lineageTag": "8fcae7f2-b526-4bdd-bb79-ce63b3733426"
+          },
+          {
+            "name": "Rank_Long_Straights",
+            "expression": "RANKX(ALLSELECTED('Model'), [Score_Long_Straights], , DESC, DENSE)",
+            "formatString": "0",
+            "lineageTag": "4b7a3d4b-15fd-4403-bef1-0a35cbec3e30"
           }
         ],
-        "lineageTag": "95d613f8-860c-474e-8c2f-893884d95bc2",
         "partitions": [
           {
             "name": "Table Mesure",
@@ -1126,9 +1375,10 @@
               "expression": [
                 "let",
                 "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}})",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Column1\"})",
                 "in",
-                "    #\"Changed Type\""
+                "    #\"Removed Columns\""
               ],
               "type": "m"
             }
